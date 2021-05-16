@@ -15,10 +15,15 @@ app.use(json());
 app.use(urlencoded({ extended: true }));
 
 export const start = async () => {
+  // Esto autentica la conexion antes de inicializar la App
   sequelize
     .authenticate()
     .then(async (msg) => {
       console.log("Autenticacion Exitosa con la DB");
+      //sequelize.sync Conecta los modelos de la ORM con la BD
+      //Opciones: {alter: <Boolean> #Hace que modifique las tablas para que se adapte a los modelos}
+      //Opciones: {force: <Boolean> #Hace que Dropee las tablas cada vez que crea una coneccion}
+      //! NO UTILIZAR FORCE EN PRODUCCION BAJO NINGUN CONCEPTO
       await sequelize.sync({ alter: true });
     })
     .catch((err) => {
