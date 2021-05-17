@@ -29,8 +29,7 @@ export const start = async () => {
     .catch((err) => {
       console.error(`Error al Conectar con la BD: ${err}`);
     });
-
-  app.listen(4000, () => {
-    console.log(`Aplicacion escuchando en el puerto ${4000}`);
+  app.listen(process.env.PORT, () => {
+    console.log(`Aplicacion escuchando en el puerto ${process.env.PORT}`);
   });
 };
