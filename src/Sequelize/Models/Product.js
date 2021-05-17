@@ -1,4 +1,12 @@
-//Representacion en la BD de un Producto
+/*Representación en la BD de un Producto
+  - id_producto(PK): INTEGER => ID del producto
+  - nombre: STRING => nombre del Producto
+  - descripcion: STRING => descripcion del Producto 
+  - peso: ENUM => Peso del Producto (Ligero, Mediano, Pesado o Muy Pesado)
+  - precio: DOUBLE => Precio del producto
+  - fotos: STRING[] => Array de Fotos del Producto
+  - condiciones: STRING => Posibles Condiciones especiales del producto (Fragile, Refrigerado y/o Liquido)
+*/
 import { DataTypes } from "sequelize";
 
 module.exports = (sequelize) => {
@@ -23,15 +31,20 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       precio: {
-        type: DataTypes.REAL.UNSIGNED((decimals = 2)),
+        type: DataTypes.DOUBLE,
         allowNull: false,
+        validate: {
+          min: 0,
+        },
       },
       fotos: {
         type: DataTypes.ARRAY(DataTypes.STRING),
       },
       condiciones: {
-        type: DataTypes.ARRAY(DataTypes.ENUM("Fragile", "Refrigerado", "Líquido"))
-      }
+        type: DataTypes.ARRAY(
+          DataTypes.ENUM("Fragile", "Refrigerado", "Líquido")
+        ),
+      },
     },
     { freezeTableName: true }
   );

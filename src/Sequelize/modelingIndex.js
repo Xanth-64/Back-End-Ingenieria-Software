@@ -11,7 +11,7 @@ const catalog = require("./Models/Catalog")(sequelize);
 const discount = require("./Models/Discount")(sequelize);
 
 //Importacion del archivo de Generacion de Relaciones de la Carpeta Models
-const relation = require("./Models/Relationships");
+const relation = require("./Models/Relationships")(sequelize);
 
 //Exportacion del objeto Sequelize
 module.exports = sequelize;

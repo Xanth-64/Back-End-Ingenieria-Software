@@ -1,4 +1,7 @@
-//Representacion en la BD de un Catalogo
+/*Representación en la BD de un Catalogo/Categoria
+- id_categoria(PK): INTEGER => ID de la categoria
+- nombre(AK): STRING => Nombre de la Categoria
+*/
 import { DataTypes } from "sequelize";
 
 module.exports = (sequelize) => {
@@ -13,6 +16,7 @@ module.exports = (sequelize) => {
       nombre: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
       },
     },
     { freezeTableName: true }

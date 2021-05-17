@@ -1,4 +1,9 @@
-//Representacion en la BD de un Producto
+/*Representación en la BD de un Descuento
+- id_descuento(PK): INTEGER => ID del descuento
+- porcentaje: INTEGER => Porcentaje del descuento
+- fecha_inicio: DATE => Fecha de Inicio del descuento
+- fecha_final: DATE => Fecha de Culminacion del descuento
+*/
 import { DataTypes } from "sequelize";
 
 module.exports = (sequelize) => {
@@ -11,7 +16,7 @@ module.exports = (sequelize) => {
         autoIncrement: true,
       },
       porcentaje: {
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
           min: 0,
