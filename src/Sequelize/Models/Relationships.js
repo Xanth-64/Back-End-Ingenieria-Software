@@ -1,8 +1,22 @@
 module.exports = (sequelize) => {
+  //Relacion 1:1 - usuario:transportista
+  sequelize.models.usuario.hasOne(sequelize.model.transportista, {
+    onDelete: "CASCADE",
+  });
+
+  //Assercion de Relacion Mandatoria
+  sequelize.models.transportista.belongsTo(sequelize.models.usuario);
+
+  //Relacion 1:1 - transportista:vehiculo
+  sequelize.models.transportista.hasOne(sequelize.models.vehiculo, {
+    onDelete: "SET NULL",
+  });
+
   //Relacion 1:N - catalogo:subcategoria
   sequelize.models.catalogo.hasMany(sequelize.models.subcategoria, {
     onDelete: "CASCADE",
   });
+
   //Assercion de Relacion Mandatoria
   sequelize.models.subcategoria.belongsTo(sequelize.models.catalogo);
 

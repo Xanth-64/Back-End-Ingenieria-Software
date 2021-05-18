@@ -5,6 +5,8 @@ const sequelize = new Sequelize(process.env.DB);
 
 //Importacion de Modelos de la carpeta Models
 const user = require("./Models/User")(sequelize);
+const driver = require("./Models/Driver")(sequelize);
+const vehicle = require("./Models/Vehicle")(sequelize);
 const product = require("./Models/Product")(sequelize);
 const subcat = require("./Models/SubCategory")(sequelize);
 const catalog = require("./Models/Catalog")(sequelize);
