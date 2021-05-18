@@ -1,6 +1,6 @@
 /*Representación en la BD de un Usuario
-  - usuario_id(PK): INTEGER => ID del usuario
-  - tipo: ENUM => tipo de usuario (administrador: 0, cliente: 1, emprendedor: 2, transportista: 3)
+  - id_usuario(PK): INTEGER => ID del usuario
+  - tipo: ENUM => tipo de usuario (Administrador, Cliente, Emprendedor, Transportista)
   - nombre: STRING => nombre del usuario
   - apellido: STRING => apellido del usuario
   - email(AK): STRING => Correo del usuario
@@ -9,15 +9,13 @@
   - imagen_url: STRING => URL de la imagen de perfil
   - direccion: STRING => Dirección del domicilio del usuario
 */
-
-//Representacion en la BD de un Usuario
 import { DataTypes } from "sequelize";
 
 module.exports = (sequelize) => {
   const usuario = sequelize.define(
     "usuario",
     {
-      usuario_id: {
+      id_usuario: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         allowNull: false,
