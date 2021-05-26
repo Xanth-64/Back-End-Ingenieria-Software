@@ -1,1 +1,1 @@
-web: npm restart
+web: npm run deploy
