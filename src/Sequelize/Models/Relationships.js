@@ -1,6 +1,6 @@
 module.exports = (sequelize) => {
   //Relacion 1:1 - usuario:negocio
-  sequelize.models.usuario.hasOne(sequelize.model.negocio, {
+  sequelize.models.usuario.hasOne(sequelize.models.negocio, {
     onDelete: "CASCADE",
   });
 
@@ -8,7 +8,7 @@ module.exports = (sequelize) => {
   sequelize.models.negocio.belongsTo(sequelize.models.usuario);
 
   //Relacion 1:1 - usuario:transportista
-  sequelize.models.usuario.hasOne(sequelize.model.transportista, {
+  sequelize.models.usuario.hasOne(sequelize.models.transportista, {
     onDelete: "CASCADE",
   });
 
@@ -16,7 +16,7 @@ module.exports = (sequelize) => {
   sequelize.models.transportista.belongsTo(sequelize.models.usuario);
 
   //Relacion 1:N - empresa_transportistas:transportista
-  sequelize.models.empresa_transportistas.hasMany(sequelize.model.transportista, {
+  sequelize.models.empresa_transportistas.hasMany(sequelize.models.transportista, {
     onDelete: "CASCADE",
   });
 
