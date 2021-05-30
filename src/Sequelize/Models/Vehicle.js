@@ -1,8 +1,7 @@
 /*Representación en la BD de un Vehículo
   - id_vehiculo(PK): INTEGER => ID del vehículo
-  - tipo: ENUM => tipo del vehículo
+  - placa(AK): STRING => Placa del Vehiculo
   - capacidad: ENUM => capacidad máxima del vehículo
-  - matricula: STRING => matrícula del vehículo
   - modelo: STRING => modelo del vehículo
   - marca: STRING => marca del vehículo
 */
@@ -18,17 +17,19 @@ module.exports = (sequelize) => {
         allowNull: false,
         primaryKey: true,
       },
-      tipo: {
-        type: DataTypes.ENUM("Camioneta", "Moto"),
-        allowNull: false,
-      },
       capacidad: {
         type: DataTypes.ENUM("Ligero", "Mediano", "Pesado", "Muy Pesado"),
         allowNull: false,
       },
-      matricula: {
+      condiciones: {
+        type: DataTypes.ARRAY(
+          DataTypes.ENUM("Fragile", "Refrigerado", "Líquido")
+        ),
+      },
+      placa: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
       },
       modelo: {
         type: DataTypes.STRING,

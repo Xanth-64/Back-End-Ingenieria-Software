@@ -10,8 +10,8 @@
 import { DataTypes } from "sequelize";
 
 module.exports = (sequelize) => {
-  const negocio = sequelize.define(
-    "negocio",
+  const emprendimiento = sequelize.define(
+    "emprendimiento",
     {
       id_negocio: {
         type: DataTypes.INTEGER,
@@ -19,33 +19,26 @@ module.exports = (sequelize) => {
         allowNull: false,
         primaryKey: true,
       },
-      nombre: {
-          type: DataTypes.STRING,
-          allowNull: false,
-      },
-      descripcion: {
-          type: DataTypes.STRING,
-          allowNull: true,
-      },
-      valoracion: {
-          type: DataTypes.REAL,
-          allowNull: false,
-      },
-      esta_suscrito: {
-          type: DataTypes.BOOLEAN,
-          allowNull: false,
-      },
-      transporte_hab: {
-          type: DataTypes.BOOLEAN,
-          allowNull: false,
-      },
-      direccion: {
+      name_empresa: {
         type: DataTypes.STRING,
         allowNull: false,
+      },
+      verificado: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
+      start_date: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW,
+      },
+      descripcion: {
+        type: DataTypes.TEXT,
       },
     },
     { freezeTableName: true }
   );
 
-  return negocio;
+  return emprendimiento;
 };

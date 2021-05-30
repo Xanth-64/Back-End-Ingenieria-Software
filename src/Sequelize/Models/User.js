@@ -1,15 +1,19 @@
 /*Representación en la BD de un Usuario
   - id_usuario(PK): INTEGER => ID del usuario
   - tipo: ENUM => tipo de usuario (Administrador, Cliente, Emprendedor, Transportista)
+  - password: STRING => Contraseña del usuario
   - nombre: STRING => nombre del usuario
   - apellido: STRING => apellido del usuario
   - email(AK): STRING => Correo del usuario
   - telefono(AK): STRING => Teléfono del usuario
-  - password: STRING => Contraseña del usuario
-  - imagen_url: STRING => URL de la imagen de perfil
-  - direccion: STRING => Dirección del domicilio del usuario
+  - picture: STRING => URL de la imagen de perfil
 */
 import { DataTypes } from "sequelize";
+import bcrypt from "bcryptjs";
+
+async function generateHash(password) {
+  return await bcrypt.hash(password, 10);
+}
 
 module.exports = (sequelize) => {
   const usuario = sequelize.define(
@@ -30,6 +34,10 @@ module.exports = (sequelize) => {
         ),
         allowNull: false,
       },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       nombre: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -48,20 +56,31 @@ module.exports = (sequelize) => {
         allowNull: false,
         unique: true,
       },
-      password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       imagen_url: {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      direccion: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
     },
-    { freezeTableName: true }
+    {
+      freezeTableName: true,
+      hooks: {
+        beforeCreate: async (user) => {
+          if (user) {
+            user.password = await generateHash(user.password);
+          }
+        },
+        beforeUpdate: async (user) => {
+          if (user.password) {
+            user.password = await generateHash(user.password);
+          }
+        },
+      },
+      instanceMethods: {
+        validateHash: async (password) => {
+          return await bcrypt.compare(password, this.password);
+        },
+      },
+    }
   );
 
   return usuario;

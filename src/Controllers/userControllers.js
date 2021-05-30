@@ -27,7 +27,6 @@ export async function postUsuario(req, res) {
     telefono,
     password,
     imagen_url,
-    direccion,
   } = req.body;
 
   //console.log(tipo);
@@ -42,7 +41,6 @@ export async function postUsuario(req, res) {
       telefono: telefono,
       password: password,
       imagen_url: imagen_url,
-      direccion: direccion,
     });
     //Si hay un usuario nuevo en la variable entrara en este if
     if (newuser) {
@@ -119,3 +117,7 @@ export async function putUsuario(req, res) {
     data: datos,
   });
 }
+
+import { defaultCrudCallbacks } from "./crud";
+
+export default defaultCrudCallbacks(sequelize.models.usuario);

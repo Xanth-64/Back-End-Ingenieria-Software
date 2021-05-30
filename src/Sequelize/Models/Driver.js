@@ -9,8 +9,8 @@
 import { DataTypes } from "sequelize";
 
 module.exports = (sequelize) => {
-  const transportista = sequelize.define(
-    "transportista",
+  const driver = sequelize.define(
+    "driver",
     {
       id_transportista: {
         type: DataTypes.INTEGER,
@@ -18,17 +18,29 @@ module.exports = (sequelize) => {
         allowNull: false,
         primaryKey: true,
       },
-      cuota: {
+      tarifa: {
         type: DataTypes.REAL,
+        allowNull: false,
+        validate: {
+          min: 0,
+        },
+      },
+      licencia_picture: {
+        type: DataTypes.STRING,
         allowNull: false,
       },
-      valoracion: {
-        type: DataTypes.REAL,
+      certi_salud: {
+        type: DataTypes.STRING,
         allowNull: false,
+      },
+      active: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
       },
     },
     { freezeTableName: true }
   );
 
-  return transportista;
+  return driver;
 };

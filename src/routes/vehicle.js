@@ -1,13 +1,8 @@
 const express = require("express");
 const router = express.Router();
-//importamos las funciones del archivo correspondiente, cada ruta tendra el suyo
-// import {
-//   postUsuario,
-//   getUsuario,
-//   putUsuario,
-// } from "../Controllers/userControllers";
 
-const defaultCrudCallbacks = require("../Controllers/userControllers");
+const defaultCrudCallbacks = require("../Controllers/vehicleControllers");
+console.log(defaultCrudCallbacks);
 
 //RUTA POST
 router.post("/one", defaultCrudCallbacks.default.createOne);
