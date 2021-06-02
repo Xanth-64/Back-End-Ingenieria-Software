@@ -75,13 +75,12 @@ module.exports = (sequelize) => {
           }
         },
       },
-      instanceMethods: {
-        validateHash: async (password) => {
-          return await bcrypt.compare(password, this.password);
-        },
-      },
     }
   );
+
+  sequelize.models.usuario.prototype.validateHash = async function (password) {
+    return await bcrypt.compare(password, this.password);
+  };
 
   return usuario;
 };

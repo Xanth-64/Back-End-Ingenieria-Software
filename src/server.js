@@ -1,9 +1,8 @@
 import express from "express";
 import { json, urlencoded } from "body-parser";
 import cors from "cors";
-
+import morgan from "morgan";
 import sequelize from "./Sequelize/modelingIndex";
-import usuarios from "./routes/usuarios";
 //Configuracion Base de Express.
 
 const app = express();
@@ -18,6 +17,9 @@ app.use(cors());
 
 //Requerimiento de que los parametros de las peticiones esten en la URL de las mismas.
 app.use(urlencoded({ extended: true }));
+
+//Morgan hace logs mas bonitos de lo que sucede con los Endpoints
+app.use(morgan("dev"));
 
 // Ruta a usar de usuarios. Para usar la ruta se debe escribir exactamente
 //en INSOMNIA o POSTMAN 'http://localhost:4000/api/usuarios'
@@ -43,6 +45,9 @@ app.use("/api/subCategory", require("./routes/subCategory"));
 app.use("/api/suscription", require("./routes/suscription"));
 app.use("/api/usuarios", require("./routes/usuarios"));
 app.use("/api/vehicle", require("./routes/vehicle"));
+
+//Rutas de Autenticación
+app.use("/api/auth", require("./routes/auth"));
 
 export const start = async () => {
   // Esto autentica la conexion antes de inicializar la App
