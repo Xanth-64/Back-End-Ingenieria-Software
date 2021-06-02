@@ -1,5 +1,7 @@
 import express from "express";
 import { json, urlencoded } from "body-parser";
+import cors from "cors";
+
 import sequelize from "./Sequelize/modelingIndex";
 import usuarios from "./routes/usuarios";
 //Configuracion Base de Express.
@@ -10,6 +12,9 @@ const app = express();
 
 //Parseo a JSON de los Bodys.
 app.use(json());
+
+//Permisión del Cross Referencing
+app.use(cors());
 
 //Requerimiento de que los parametros de las peticiones esten en la URL de las mismas.
 app.use(urlencoded({ extended: true }));
