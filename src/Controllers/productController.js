@@ -1,4 +1,7 @@
 const sequelize = require("../Sequelize/modelingIndex");
+
+//PARA SABER MAS REVISAR userControllers.js  donde esta documentado
+
 export async function postProducto(req, res) {
   console.log(req.body);
   const { nombre, descripcion, peso, precio, fotos, condiciones } = req.body;

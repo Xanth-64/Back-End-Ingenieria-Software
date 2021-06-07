@@ -1,5 +1,7 @@
 const sequelize = require("../Sequelize/modelingIndex");
 
+//PARA SABER MAS REVISAR userControllers.js  donde esta documentado
+
 export async function postDriver(req, res) {
   console.log(req.body);
   const {
