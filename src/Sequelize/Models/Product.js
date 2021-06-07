@@ -23,12 +23,20 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       descripcion: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
+      },
+      isVisible: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
       },
       peso: {
         type: DataTypes.ENUM("Ligero", "Mediano", "Pesado", "Muy Pesado"),
         allowNull: false,
+      },
+      fotos: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
       },
       precio: {
         type: DataTypes.DOUBLE,
@@ -37,9 +45,7 @@ module.exports = (sequelize) => {
           min: 0,
         },
       },
-      fotos: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
-      },
+
       condiciones: {
         type: DataTypes.ARRAY(
           DataTypes.ENUM("Fragile", "Refrigerado", "Líquido")

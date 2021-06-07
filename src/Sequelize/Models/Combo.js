@@ -1,14 +1,10 @@
-/*Representación en la BD de un Catalogo/Categoria
-- id_categoria(PK): INTEGER => ID de la categoria
-- nombre(AK): STRING => Nombre de la Categoria
-*/
 import { DataTypes } from "sequelize";
 
 module.exports = (sequelize) => {
-  const catalog = sequelize.define(
-    "categoria",
+  const combo = sequelize.define(
+    "combo",
     {
-      id_categoria: {
+      id_combo: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
@@ -16,11 +12,14 @@ module.exports = (sequelize) => {
       nombre: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
+      },
+      descripcion: {
+        type: DataTypes.TEXT,
+        allowNull: false,
       },
     },
     { freezeTableName: true }
   );
 
-  return catalog;
+  return combo;
 };

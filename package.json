@@ -8,6 +8,7 @@
     "build": "babel src --out-dir dist",
     "restart": "rimraf dist && npm run build && npm run start",
     "dev": "nodemon --exec npm run restart",
+    "deploy": "npm run build && npm run start",
     "start": "node dist/index.js"
   },
   "keywords": [],
@@ -31,8 +32,13 @@
     "cors": "^2.8.5",
     "dotenv": "^9.0.2",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
     "pg": "^8.6.0",
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.6.2"
+  },
+  "engines": {
+    "node": "14.15.1"
   }
 }

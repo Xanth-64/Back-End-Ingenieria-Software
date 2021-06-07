@@ -1,26 +1,30 @@
-/*Representación en la BD de un Catalogo/Categoria
-- id_categoria(PK): INTEGER => ID de la categoria
-- nombre(AK): STRING => Nombre de la Categoria
-*/
 import { DataTypes } from "sequelize";
 
 module.exports = (sequelize) => {
-  const catalog = sequelize.define(
-    "categoria",
+  const cuenta_crypto = sequelize.define(
+    "cuenta_crypto",
     {
-      id_categoria: {
+      id_crypto: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      nombre: {
+      address: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
+      },
+      moneda: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      red: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
     },
     { freezeTableName: true }
   );
 
-  return catalog;
+  return cuenta_crypto;
 };
