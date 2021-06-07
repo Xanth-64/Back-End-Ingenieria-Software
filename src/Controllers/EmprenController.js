@@ -1,5 +1,6 @@
 const sequelize = require("../Sequelize/modelingIndex");
-
+//* Cruds Basicos realizados anteriormente para el modelo de Emprendedor. Reemplazados por Genericos pero igualmente de Valor.
+//!NO ELIMINAR
 // export async function postEmpren(req, res) {
 //   console.log(req.body);
 //   const {
@@ -93,4 +94,5 @@ const sequelize = require("../Sequelize/modelingIndex");
 
 import { defaultCrudCallbacks } from "./crud";
 
+//Exportacion de los Cruds Basicos para el Modelo de Emprendedor. (Ahora el modelo tiene los Cruds basicos automaticamente.)
 export default defaultCrudCallbacks(sequelize.models.emprendimiento);

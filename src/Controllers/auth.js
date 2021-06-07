@@ -1,6 +1,7 @@
 import sequelize from "../Sequelize/modelingIndex";
 import jwt from "jsonwebtoken";
 
+//Funcion Utilitaria que crea un token de JWT.
 export const createToken = (user) => {
   return jwt.sign(
     { id: user.id_usuario, email: user.email, tipo: user.tipo },
@@ -11,6 +12,7 @@ export const createToken = (user) => {
   );
 };
 
+//Funcion Utilitaria que valida un token de JWT.
 export const validateToken = (token) => {
   new Promise((resolve, reject) => {
     jwt.verify(token, process.env.JWTSECRET, (err, payload) => {
@@ -22,6 +24,7 @@ export const validateToken = (token) => {
   });
 };
 
+//Function que hace signUp de un usuario y retorna un JWT.
 export const signUp = async (req, res) => {
   if (
     !req.body.tipo ||
@@ -54,6 +57,7 @@ export const signUp = async (req, res) => {
   }
 };
 
+//Funcion que realiza el login de un usuario y crea un token de JWT.
 export const login = async (req, res) => {
   if (!req.body.email || !req.body.password) {
     return res.status(400).send({

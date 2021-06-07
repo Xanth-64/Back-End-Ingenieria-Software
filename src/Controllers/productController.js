@@ -1,5 +1,6 @@
 const sequelize = require("../Sequelize/modelingIndex");
-
+//* Cruds Basicos realizados anteriormente. Reemplazados por los Cruds Genericos pero aun conservan Valor referencial.
+//! No Eliminar.
 // export async function postProducto(req, res) {
 //   console.log(req.body);
 //   const { nombre, descripcion, peso, precio, fotos, condiciones } = req.body;
@@ -74,4 +75,5 @@ const sequelize = require("../Sequelize/modelingIndex");
 
 import { defaultCrudCallbacks } from "./crud";
 
+//Exportacion de los Cruds Basicos para el Modelo de Producto. (Ahora el modelo tiene los Cruds basicos automaticamente.)
 export default defaultCrudCallbacks(sequelize.models.producto);
