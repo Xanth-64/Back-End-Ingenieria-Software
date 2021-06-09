@@ -1,75 +1,121 @@
 const sequelize = require("../Sequelize/modelingIndex");
+const { Sequelize, Op, QueryTypes } = require("sequelize");
+import { defaultCrudCallbacks } from "./crud";
 
-//PARA SABER MAS REVISAR userControllers.js  donde esta documentado
+export default defaultCrudCallbacks(sequelize.models.producto);
 
-export async function postProducto(req, res) {
-  console.log(req.body);
-  const { nombre, descripcion, peso, precio, fotos, condiciones } = req.body;
+// ---- QUERY - trae los productos en base a la categoria
+export async function getProducto_categoria(req, res) {
+  const { nombre } = req.params;
 
   try {
-    let new_product = await sequelize.models.producto.create({
-      nombre,
-      descripcion,
-      peso,
-      precio,
-      fotos,
-      condiciones,
-    });
-    if (new_product) {
+    const producto = await sequelize.query(
+      'SELECT id_producto, producto.nombre as producto ,descripcion,"producto"."isVisible", peso, fotos, precio, condiciones, categoria.nombre as "categoria" FROM categoria INNER JOIN subcategoria ON categoria.id_categoria="subcategoria"."categoriumIdCategoria"INNER JOIN producto ON subcategoria.id_subcat= "producto"."subcategoriumIdSubcat"WHERE categoria.nombre= (:nombre)',
+
+      {
+        type: QueryTypes.SELECT,
+        replacements: { nombre: nombre },
+      }
+    );
+    if (producto) {
       return res.json({
-        message: "Product created",
-        dato: new_product,
+        message: "Product extraido",
+        dato: producto,
       });
     }
   } catch (e) {
     console.log(e);
-    res.status(500).json({ message: "Todo mal", data: {} });
+    res
+      .status(400)
+      .json({ message: "No se encontro la informacion", data: [{}] });
   }
 }
-export async function getProducto(req, res) {
-  const { id_producto } = req.params;
+//-------------------------------------------------------------
 
-  const producto = await sequelize.models.producto.findOne({
-    where: {
-      id_producto,
-    },
-  });
-  res.json({ data: producto });
-}
+//PARA SABER MAS REVISAR userControllers.js  donde esta documentado
 
-export async function putProducto(req, res) {
-  const { id_producto } = req.params;
-  const { nombre, descripcion, peso, precio, fotos, condiciones } = req.body;
-  const datos = await sequelize.models.producto.findAll({
-    attributes: [
-      "id_producto",
-      "nombre",
-      "descripcion",
-      "peso",
-      "precio",
-      "fotos",
-      "condiciones",
-    ],
-    where: {
-      id_producto,
-    },
-  });
+// export async function postProducto(req, res) {
+//   console.log(req.body);
+//   const { nombre, descripcion, peso, precio, fotos, condiciones } = req.body;
 
-  if (datos.length > 0) {
-    datos.forEach(async (dato) => {
-      await dato.update({
-        nombre,
-        descripcion,
-        peso,
-        precio,
-        fotos,
-        condiciones,
-      });
-    });
-  }
+// export async function postProducto(req, res) {
+//   console.log(req.body);
+//   const { nombre, descripcion, peso, precio, fotos, condiciones } = req.body;
 
-  return res.json({
-    message: "Actaulizado",
-    data: datos,
-  });
-}
+//   try {
+//     let new_product = await sequelize.models.producto.create({
+//       nombre,
+//       descripcion,
+//       peso,
+//       precio,
+//       fotos,
+//       condiciones,
+//     });
+//     if (new_product) {
+//       return res.json({
+//         message: "Product created",
+//         dato: new_product,
+//       });
+//     }
+//   } catch (e) {
+//     console.log(e);
+//     res.status(500).json({ message: "Todo mal", data: {} });
+//   }
+// }
+// export async function getProducto(req, res) {
+//   const { id_producto } = req.params;
+
+//   const producto = await sequelize.models.producto.findOne({
+//     where: {
+//       id_producto,
+//     },
+//   });
+//   res.json({ data: producto });
+// }
+
+// export async function putProducto(req, res) {
+//   const { id_producto } = req.params;
+//   const { nombre, descripcion, peso, precio, fotos, condiciones } = req.body;
+//   const datos = await sequelize.models.producto.findAll({
+//     attributes: [
+//       "id_producto",
+//       "nombre",
+//       "descripcion",
+//       "peso",
+//       "precio",
+//       "fotos",
+//       "condiciones",
+//     ],
+//     where: {
+//       id_producto,
+//     },
+//   });
+
+//   if (datos.length > 0) {
+//     datos.forEach(async (dato) => {
+//       await dato.update({
+//         nombre,
+//         descripcion,
+//         peso,
+//         precio,
+//         fotos,
+//         condiciones,
+//       });
+//     });
+//   }
+
+//   return res.json({
+//     message: "Actaulizado",
+//     data: datos,
+//   });
+// }
+// export async function getProducto(req, res) {
+//   const { id_producto } = req.params;
+
+//   const producto = await sequelize.models.producto.findOne({
+//     where: {
+//       id_producto,
+//     },
+//   });
+//   res.json({ data: producto });
+// }

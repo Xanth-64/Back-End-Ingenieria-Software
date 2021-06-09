@@ -2,6 +2,7 @@ import sequelize from "../Sequelize/modelingIndex";
 import jwt from "jsonwebtoken";
 
 export const createToken = (user) => {
+  //jwt.sing nos permite crear o registrar un token
   return jwt.sign(
     { id: user.id_usuario, email: user.email, tipo: user.tipo },
     process.env.JWTSECRET,
