@@ -9,6 +9,7 @@
 //! NO HACER EL DELETE (Los usuarios no tienen porque eliminarse)
 
 const sequelize = require("../Sequelize/modelingIndex");
+const { Sequelize, Op, QueryTypes } = require("sequelize");
 //el modulo "require" es una funcion que se puede usar para imporar simbolos
 //desde otro módulo al ámbito actual
 
@@ -116,6 +117,34 @@ export async function putUsuario(req, res) {
     message: "Actaulizado",
     data: datos,
   });
+}
+
+//Buscar la dirección de un usuario
+export async function getUsuarioDireccion(req, res) {
+  const { usuario_id } = req.params;
+
+  try {
+    const direccion = await sequelize.query(
+      `SELECT direccion.* FROM usuario
+      INNER JOIN direccion ON "direccion"."usuarioIdUsuario" = usuario.id_usuario
+      WHERE usuario.id_usuario = (:id);`,
+
+      {
+        type: QueryTypes.SELECT,
+        replacements: { id: usuario_id },
+      }
+    );
+
+    if (direccion) {
+      return res.json({
+        message: "Dirección encontrada",
+        data: direccion,
+      });
+    }
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({ message: "ERROR", data: {} });
+  }
 }
 
 import { defaultCrudCallbacks } from "./crud";
