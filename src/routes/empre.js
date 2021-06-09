@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const defaultCrudCallbacks = require("../Controllers/EmprenController");
-
+import { getEmpren_veri } from "../Controllers/EmprenController";
 //RUTA POST
 router.post("/one", defaultCrudCallbacks.default.createOne);
 //RUTA GET
@@ -14,7 +14,8 @@ router.put("/one/:id", defaultCrudCallbacks.default.updateOne);
 router.put("/some", defaultCrudCallbacks.default.updateSome);
 //RUTA DELETE
 router.delete("/one/:id", defaultCrudCallbacks.default.deleteOne);
-
+//RUTA PARA LOS EMPRENDIMIENTOS VERIFICADOS O NO
+router.get("/veri/:verificado", getEmpren_veri);
 module.exports = router;
 
 // import {

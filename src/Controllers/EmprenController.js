@@ -1,4 +1,40 @@
 const sequelize = require("../Sequelize/modelingIndex");
+const { Sequelize, Op, QueryTypes } = require("sequelize");
+
+import { defaultCrudCallbacks } from "./crud";
+
+//Exportacion de los Cruds Basicos para el Modelo de Emprendedor. (Ahora el modelo tiene los Cruds basicos automaticamente.)
+export default defaultCrudCallbacks(sequelize.models.emprendimiento);
+
+// ---- QUERY - ontienes los emprendimientos si estan verificados o no
+export async function getEmpren_veri(req, res) {
+  const { verificado } = req.params;
+
+  try {
+    const empre_veri = await sequelize.query(
+      "SELECT * FROM emprendimiento WHERE verificado=(:veri)",
+
+      {
+        type: QueryTypes.SELECT,
+        replacements: { veri: Boolean(verificado) },
+      }
+    );
+    if (empre_veri) {
+      return res.json({
+        message: "Product extraido",
+        dato: empre_veri,
+      });
+    }
+  } catch (e) {
+    console.log(e);
+    res
+      .status(400)
+      .json({ message: "No se encontro la informacion", data: [{}] });
+  }
+}
+
+//PARA SABER MAS REVISAR userControllers.js  donde esta documentado
+
 //* Cruds Basicos realizados anteriormente para el modelo de Emprendedor. Reemplazados por Genericos pero igualmente de Valor.
 //!NO ELIMINAR
 // export async function postEmpren(req, res) {
@@ -91,8 +127,3 @@ const sequelize = require("../Sequelize/modelingIndex");
 //     data: datos,
 //   });
 // }
-
-import { defaultCrudCallbacks } from "./crud";
-
-//Exportacion de los Cruds Basicos para el Modelo de Emprendedor. (Ahora el modelo tiene los Cruds basicos automaticamente.)
-export default defaultCrudCallbacks(sequelize.models.emprendimiento);

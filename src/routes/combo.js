@@ -9,6 +9,7 @@ router.post("/one", defaultCrudCallbacks.default.createOne);
 router.get("/one/:id", defaultCrudCallbacks.default.getOne);
 router.get("/some", defaultCrudCallbacks.default.getSome);
 router.get("/all", defaultCrudCallbacks.default.getMany);
+router.get("/products/:id", defaultCrudCallbacks.getProductosByCombo);
 //RUTA PUT
 router.put("/one/:id", defaultCrudCallbacks.default.updateOne);
 router.put("/some", defaultCrudCallbacks.default.updateSome);

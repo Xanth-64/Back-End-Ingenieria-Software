@@ -8,7 +8,7 @@
   - condiciones: STRING => Posibles Condiciones especiales del producto (Fragile, Refrigerado y/o Liquido)
 */
 import { DataTypes } from "sequelize";
-
+import { where } from "sequelize";
 module.exports = (sequelize) => {
   const product = sequelize.define(
     "producto",
