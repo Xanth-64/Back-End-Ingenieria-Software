@@ -1,15 +1,19 @@
 module.exports = (sequelize) => {
   // Relacion Usuario - Direccion
-  sequelize.models.usuario.hasOne(sequelize.models.direccion);
-
-  sequelize.models.direccion.belongsTo(sequelize.models.usuario, {
-    foreignKey: { allowNull: false },
+  sequelize.models.usuario.hasOne(sequelize.models.direccion, {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
   });
 
+  sequelize.models.direccion.belongsTo(sequelize.models.usuario, {
+    foreignKey: { allowNull: false },
+  });
+
   //Relacion Usuario- Driver
-  sequelize.models.usuario.hasOne(sequelize.models.driver);
+  sequelize.models.usuario.hasOne(sequelize.models.driver, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  });
 
   sequelize.models.driver.belongsTo(sequelize.models.usuario, {
     foreignKey: { allowNull: false },
@@ -19,12 +23,13 @@ module.exports = (sequelize) => {
 
   //Relacion Usuario - Emprendimiento
 
-  sequelize.models.usuario.hasOne(sequelize.models.emprendimiento);
+  sequelize.models.usuario.hasOne(sequelize.models.emprendimiento, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  });
 
   sequelize.models.emprendimiento.belongsTo(sequelize.models.usuario, {
     foreignKey: { allowNull: false },
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
   });
 
   //Relacion Driver - Vehiculo
@@ -46,14 +51,18 @@ module.exports = (sequelize) => {
   });
 
   //Relacion Driver - empre_driver
-  sequelize.models.empre_drive.hasMany(sequelize.models.driver);
+  sequelize.models.empre_drive.hasMany(sequelize.models.driver),
+    { onDelete: "CASCADE", onUpdate: "CASCADE" };
 
   sequelize.models.driver.belongsTo(sequelize.models.empre_drive, {
     foreignKey: { allowNull: false },
   });
 
   //Relacion Emprendimiento - Suscripcion
-  sequelize.models.emprendimiento.hasMany(sequelize.models.suscripcion);
+  sequelize.models.emprendimiento.hasMany(sequelize.models.suscripcion, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  });
 
   sequelize.models.suscripcion.belongsTo(sequelize.models.emprendimiento, {
     foreignKey: { allowNull: false },
@@ -61,38 +70,44 @@ module.exports = (sequelize) => {
 
   //Relacion CuentaBanca - Emprendimiento
 
-  sequelize.models.emprendimiento.hasOne(sequelize.models.cuenta_banca);
-
-  sequelize.models.cuenta_banca.belongsTo(sequelize.models.emprendimiento, {
-    foreignKey: { allowNull: false },
+  sequelize.models.emprendimiento.hasOne(sequelize.models.cuenta_banca, {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
   });
 
+  sequelize.models.cuenta_banca.belongsTo(sequelize.models.emprendimiento, {
+    foreignKey: { allowNull: false },
+  });
+
   //Relacion CuentaCripto - Emprendimiento
-  sequelize.models.emprendimiento.hasOne(sequelize.models.cuenta_crypto);
+  sequelize.models.emprendimiento.hasOne(sequelize.models.cuenta_crypto, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  });
 
   sequelize.models.cuenta_crypto.belongsTo(sequelize.models.emprendimiento, {
     foreignKey: { allowNull: false },
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
   });
 
   //Relacion CuentaPaypal - Emprendimiento
 
-  sequelize.models.emprendimiento.hasOne(sequelize.models.cuenta_paypal);
-
-  sequelize.models.cuenta_paypal.belongsTo(sequelize.models.emprendimiento, {
-    foreignKey: { allowNull: false },
+  sequelize.models.emprendimiento.hasOne(sequelize.models.cuenta_paypal, {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
   });
 
+  sequelize.models.cuenta_paypal.belongsTo(sequelize.models.emprendimiento, {
+    foreignKey: { allowNull: false },
+  });
+
   //Relacion Producto - Emprendimiento
 
-  sequelize.models.emprendimiento.hasMany(sequelize.models.producto);
+  sequelize.models.emprendimiento.hasMany(sequelize.models.producto, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  });
 
-  sequelize.models.producto.belongsTo(sequelize.models.emprendimiento);
+  sequelize.models.producto.belongsTo(sequelize.models.emprendimiento, {});
 
   //Relacion Pedido - Driver
 
@@ -104,23 +119,35 @@ module.exports = (sequelize) => {
 
   sequelize.models.producto.hasMany(sequelize.models.descuento);
 
-  sequelize.models.descuento.belongsTo(sequelize.models.producto);
+  sequelize.models.descuento.belongsTo(sequelize.models.producto, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  });
 
   //Relacion Producto - Promocion
 
-  sequelize.models.producto.hasMany(sequelize.models.promocion);
+  sequelize.models.producto.hasMany(sequelize.models.promocion, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  });
 
-  sequelize.models.promocion.belongsTo(sequelize.models.producto);
+  sequelize.models.promocion.belongsTo(sequelize.models.producto, {});
 
   //Relacion Producto - Subcategoria
 
-  sequelize.models.subcategoria.hasMany(sequelize.models.producto);
+  sequelize.models.subcategoria.hasMany(sequelize.models.producto, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  });
 
   sequelize.models.producto.belongsTo(sequelize.models.subcategoria);
 
   //Relacion Categoria - Subcategoria
 
-  sequelize.models.categoria.hasMany(sequelize.models.subcategoria);
+  sequelize.models.categoria.hasMany(sequelize.models.subcategoria, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  });
 
   sequelize.models.subcategoria.belongsTo(sequelize.models.categoria);
 

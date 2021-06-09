@@ -59,7 +59,7 @@ export const start = async () => {
       //Opciones: {alter: <Boolean> #Hace que modifique las tablas para que se adapte a los modelos}
       //Opciones: {force: <Boolean> #Hace que Dropee las tablas cada vez que crea una coneccion}
       //! NO UTILIZAR FORCE EN PRODUCCION BAJO NINGUN CONCEPTO
-  
+
       await sequelize.sync({ force: false });
     })
     .catch((err) => {
