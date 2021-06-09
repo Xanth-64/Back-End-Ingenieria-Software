@@ -120,4 +120,5 @@ export async function putUsuario(req, res) {
 
 import { defaultCrudCallbacks } from "./crud";
 
+//Cruds por default del Modelo de Usuario
 export default defaultCrudCallbacks(sequelize.models.usuario);
