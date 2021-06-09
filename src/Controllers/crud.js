@@ -5,7 +5,6 @@
 
 // Funcion Generica que trae un elemento del modelo filtrando por su ID
 export const getOne = (model) => async (req, res) => {
-  console.log(req.params);
   try {
     //Se utiliza el metodo generico findByPk que nos consigue una entidad basandose en su Primary Key.
     //Como sabemos que TODOS los modelos tienen Primary Key esta funcion se puede aplicar a todos.
