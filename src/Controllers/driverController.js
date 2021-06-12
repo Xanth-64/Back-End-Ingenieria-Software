@@ -2,6 +2,8 @@ const sequelize = require("../Sequelize/modelingIndex");
 
 //PARA SABER MAS REVISAR userControllers.js  donde esta documentado
 
+//* Funciones Realizadas anteriormente, reemplazadas por CRUDS genericos pero igualmente de valor
+
 // export async function postDriver(req, res) {
 //   console.log(req.body);
 //   const {
@@ -79,5 +81,5 @@ const sequelize = require("../Sequelize/modelingIndex");
 // }
 
 import { defaultCrudCallbacks } from "./crud";
-
+//Exportacion de los Cruds Basicos para el Modelo de Driver. (Ahora el modelo tiene los Cruds basicos automaticamente.)
 export default defaultCrudCallbacks(sequelize.models.driver);
