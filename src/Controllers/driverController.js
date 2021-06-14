@@ -1,4 +1,5 @@
 const sequelize = require("../Sequelize/modelingIndex");
+const { Sequelize, Op, QueryTypes } = require("sequelize");
 
 //PARA SABER MAS REVISAR userControllers.js  donde esta documentado
 
@@ -79,6 +80,61 @@ const sequelize = require("../Sequelize/modelingIndex");
 //     data: datos,
 //   });
 // }
+export async function getUsuario_Driver(req, res) {
+  const { id } = req.params;
+
+  try {
+    const driver = await sequelize.query(
+      `select usuario.*from usuario 
+      INNER JOIN driver ON "driver"."usuarioIdUsuario"=usuario.id_usuario
+      WHERE "driver"."id_transportista"=(:transportista)`,
+
+      {
+        type: QueryTypes.SELECT,
+        replacements: { transportista: id },
+      }
+    );
+    if (driver) {
+      return res.json({
+        message: "Usuario Driver extraido",
+        dato: driver,
+      });
+    }
+  } catch (e) {
+    console.log(e);
+    res
+      .status(400)
+      .json({ message: "No se encontro la informacion", data: [{}] });
+  }
+}
+
+export async function getDriver_Condicion(req, res) {
+  const { condi } = req.params;
+
+  try {
+    const driver = await sequelize.query(
+      `select driver.* FROM driver
+        inner join vehiculo ON vehiculo.id_vehiculo="driver"."vehiculoIdVehiculo"
+        where vehiculo.condiciones=(:condicion)`,
+
+      {
+        type: QueryTypes.SELECT,
+        replacements: { condicion: condi },
+      }
+    );
+    if (driver) {
+      return res.json({
+        message: "Usuario Driver extraido",
+        dato: driver,
+      });
+    }
+  } catch (e) {
+    console.log(e);
+    res
+      .status(400)
+      .json({ message: "No se encontro la informacion", data: [{}] });
+  }
+}
 
 import { defaultCrudCallbacks } from "./crud";
 //Exportacion de los Cruds Basicos para el Modelo de Driver. (Ahora el modelo tiene los Cruds basicos automaticamente.)

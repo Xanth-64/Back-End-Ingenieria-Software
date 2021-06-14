@@ -33,6 +33,34 @@ export async function getEmpren_veri(req, res) {
   }
 }
 
+export async function getEmpre_usuario(req, res) {
+  const { id } = req.params;
+
+  try {
+    const empre_usuario = await sequelize.query(
+      `select usuario.* from emprendimiento
+      inner join usuario on "emprendimiento"."usuarioIdUsuario"=usuario.id_usuario
+      where emprendimiento.id_negocio= (:usuario)`,
+
+      {
+        type: QueryTypes.SELECT,
+        replacements: { usuario: id },
+      }
+    );
+    if (empre_usuario) {
+      return res.json({
+        message: "Product extraido",
+        dato: empre_usuario,
+      });
+    }
+  } catch (e) {
+    console.log(e);
+    res
+      .status(400)
+      .json({ message: "No se encontro la informacion", data: [{}] });
+  }
+}
+
 //PARA SABER MAS REVISAR userControllers.js  donde esta documentado
 
 //* Cruds Basicos realizados anteriormente para el modelo de Emprendedor. Reemplazados por Genericos pero igualmente de Valor.

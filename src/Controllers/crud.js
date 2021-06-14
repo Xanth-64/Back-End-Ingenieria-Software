@@ -1,6 +1,7 @@
 export const getOne = (model) => async (req, res) => {
   try {
     const doc = await model.findByPk(req.params.id);
+
     console.log("entro");
     if (!doc) {
       return res
@@ -103,11 +104,12 @@ export const updateOne = (model) => async (req, res) => {
 };
 
 export const createOne = (model) => async (req, res) => {
+  console.log("BODY");
   console.log(req.body);
+
   try {
     const doc = await model.create(req.body);
-    print(req.body);
-
+    console.log(doc);
     if (!doc) {
       return res
         .status(400)

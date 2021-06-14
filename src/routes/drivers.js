@@ -2,6 +2,10 @@ const express = require("express");
 const router = express.Router();
 
 const defaultCrudCallbacks = require("../Controllers/driverController");
+import {
+  getUsuario_Driver,
+  getDriver_Condicion,
+} from "../Controllers/driverController";
 
 //RUTA POST
 router.post("/one", defaultCrudCallbacks.default.createOne);
@@ -15,6 +19,8 @@ router.put("/some", defaultCrudCallbacks.default.updateSome);
 //RUTA DELETE
 router.delete("/one/:id", defaultCrudCallbacks.default.deleteOne);
 
+router.get("/driver_usuario/:id", getUsuario_Driver);
+router.get("/driver_condicion/:condi", getDriver_Condicion);
 module.exports = router;
 
 // import {
