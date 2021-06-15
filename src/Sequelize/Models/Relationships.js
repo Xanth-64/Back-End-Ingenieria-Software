@@ -115,6 +115,10 @@ module.exports = (sequelize) => {
 
   sequelize.models.pedido.belongsTo(sequelize.models.driver);
 
+  //Relacion Usuario - Pedido
+  sequelize.models.usuario.hasMany(sequelize.models.pedido);
+
+  sequelize.models.pedido.belongsTo(sequelize.models.usuario);
   //Relacion Producto - Descuento
 
   sequelize.models.producto.hasMany(sequelize.models.descuento);
