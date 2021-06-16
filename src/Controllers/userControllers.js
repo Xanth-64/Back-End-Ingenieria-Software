@@ -147,6 +147,33 @@ export async function getUsuarioDireccion(req, res) {
   }
 }
 
+export async function getUsuarioPedidos(req, res) {
+  const { usuario_id } = req.params;
+
+  try {
+    const pedidos = await sequelize.query(
+      `SELECT pedido.* FROM usuario
+      INNER JOIN pedido ON "pedido"."usuarioIdUsuario" = usuario.id_usuario
+      WHERE usuario.id_usuario = (:id);`,
+
+      {
+        type: QueryTypes.SELECT,
+        replacements: { id: usuario_id },
+      }
+    );
+
+    if (pedidos) {
+      return res.json({
+        message: "Dirección encontrada",
+        data: pedidos,
+      });
+    }
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({ message: "ERROR", data: {} });
+  }
+}
+
 import { defaultCrudCallbacks } from "./crud";
 
 //Cruds por default del Modelo de Usuario

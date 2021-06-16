@@ -16,7 +16,8 @@ router.post("/one", defaultCrudCallbacks.default.createOne);
 router.get("/one/:id", defaultCrudCallbacks.default.getOne);
 router.get("/some", defaultCrudCallbacks.default.getSome);
 router.get("/all", defaultCrudCallbacks.default.getMany);
-router.get("/address/:id", defaultCrudCallbacks.getUsuarioDireccion);
+router.get("/direccion/:id", defaultCrudCallbacks.getUsuarioDireccion);
+router.get("/pedidos/:id", defaultCrudCallbacks.getUsuarioPedidos);
 //RUTA PUT
 router.put("/one/:id", defaultCrudCallbacks.default.updateOne);
 router.put("/some", defaultCrudCallbacks.default.updateSome);
