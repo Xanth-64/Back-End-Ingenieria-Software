@@ -116,6 +116,10 @@ export const getDriversFromEmpre = async (req, res) => {
       include: {
         model: sequelize.models.driver,
         required: true,
+        include: {
+          model: sequelize.models.usuario,
+          required: true,
+        },
       },
     });
 
