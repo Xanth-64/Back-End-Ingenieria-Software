@@ -5,13 +5,17 @@ const defaultCrudCallbacks = require("../Controllers/driverController");
 import {
   getUsuario_Driver,
   getDriver_Condicion,
+  createFromUserAndEmpre,
+  getDriversFromEmpre,
 } from "../Controllers/driverController";
 
 //RUTA POST
 router.post("/one", defaultCrudCallbacks.default.createOne);
+router.post("/one/byUserAndEmpre", createFromUserAndEmpre);
 //RUTA GET
 router.get("/one/:id", defaultCrudCallbacks.default.getOne);
 router.get("/some", defaultCrudCallbacks.default.getSome);
+router.get("/some/byEmpreDrive/:id", getDriversFromEmpre);
 router.get("/all", defaultCrudCallbacks.default.getMany);
 //RUTA PUT
 router.put("/one/:id", defaultCrudCallbacks.default.updateOne);

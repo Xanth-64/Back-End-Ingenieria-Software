@@ -80,12 +80,67 @@ const { Sequelize, Op, QueryTypes } = require("sequelize");
 //     data: datos,
 //   });
 // }
+
+export const createFromUserAndEmpre = async (req, res) => {
+  try {
+    const user = await sequelize.models.usuario.findByPk(req.body.userId);
+    const empre = await sequelize.models.empre_drive.findByPk(req.body.empreId);
+    if (user && empre) {
+      const newDriver = await sequelize.models.driver.create({
+        tarifa: req.body.tarifa,
+        licencia_picture: req.body.licencia_picture,
+        certi_salud: req.body.certi_salud,
+        active: req.body.active,
+      });
+
+      await user.setDriver(newDriver);
+      await empre.addDriver(newDriver);
+
+      return res.status(200).json({
+        message: "Driver añadido exitosamente",
+        data: [newDriver],
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    return res.status(400).end();
+  }
+};
+
+export const getDriversFromEmpre = async (req, res) => {
+  try {
+    const empre = await sequelize.models.empre_drive.findAll({
+      where: {
+        id_empre: req.params.id,
+      },
+      include: {
+        model: sequelize.models.driver,
+        required: true,
+      },
+    });
+
+    if (empre) {
+      return res.status(200).json({
+        message: "Drivers encontrados exitosamente",
+        data: [empre],
+      });
+    }
+    return res.status(400).json({
+      message: "No se encontraron Drivers asociados a la empresa elegida",
+      data: [],
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(400).end();
+  }
+};
+
 export async function getUsuario_Driver(req, res) {
   const { id } = req.params;
 
   try {
     const driver = await sequelize.query(
-      `select usuario.*from usuario 
+      `SELECT usuario.*from usuario 
       INNER JOIN driver ON "driver"."usuarioIdUsuario"=usuario.id_usuario
       WHERE "driver"."id_transportista"=(:transportista)`,
 
@@ -97,7 +152,7 @@ export async function getUsuario_Driver(req, res) {
     if (driver) {
       return res.json({
         message: "Usuario Driver extraido",
-        dato: driver,
+        data: driver,
       });
     }
   } catch (e) {
@@ -125,7 +180,7 @@ export async function getDriver_Condicion(req, res) {
     if (driver) {
       return res.json({
         message: "Usuario Driver extraido",
-        dato: driver,
+        data: driver,
       });
     }
   } catch (e) {

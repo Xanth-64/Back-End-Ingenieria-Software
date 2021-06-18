@@ -5,9 +5,13 @@ const defaultCrudCallbacks = require("../Controllers/EmprenController");
 import {
   getEmpren_veri,
   getEmpre_usuario,
+  createEmpreFromUser,
 } from "../Controllers/EmprenController";
 //RUTA POST
 router.post("/one", defaultCrudCallbacks.default.createOne);
+
+//Crear con todo y Asociacion al Usuario
+router.post("/one/byUsuario/:id", createEmpreFromUser);
 //RUTA GET
 router.get("/one/:id", defaultCrudCallbacks.default.getOne);
 router.get("/some", defaultCrudCallbacks.default.getSome);

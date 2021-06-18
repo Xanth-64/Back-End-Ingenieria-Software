@@ -7,6 +7,26 @@ import { defaultCrudCallbacks } from "./crud";
 export default defaultCrudCallbacks(sequelize.models.emprendimiento);
 
 // ---- QUERY - ontienes los emprendimientos si estan verificados o no
+export const createEmpreFromUser = async (req, res) => {
+  try {
+    const user = await sequelize.models.usuario.findByPk(req.params.id);
+    const newEmprendimiento = await user.createEmprendimiento(req.body);
+    if (newEmprendimiento) {
+      return res.status(200).json({
+        message: "Emprendimiento Creado y Asociado Exitosamente",
+        data: [newEmprendimiento],
+      });
+    }
+    return res.status(400).json({
+      message: "No se pudo Asociar y Crear el Emprendimiento",
+      data: [],
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(400).end();
+  }
+};
+
 export async function getEmpren_veri(req, res) {
   const { verificado } = req.params;
 
