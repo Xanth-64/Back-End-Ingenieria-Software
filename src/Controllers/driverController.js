@@ -122,7 +122,7 @@ export const getDriversFromEmpre = async (req, res) => {
     if (empre) {
       return res.status(200).json({
         message: "Drivers encontrados exitosamente",
-        data: [empre],
+        data: empre,
       });
     }
     return res.status(400).json({
