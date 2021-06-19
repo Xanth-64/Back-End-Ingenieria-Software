@@ -70,7 +70,7 @@ export async function getEmpre_usuario(req, res) {
     if (empre_usuario) {
       return res.json({
         message: "Product extraido",
-        dato: empre_usuario,
+        data: empre_usuario,
       });
     }
   } catch (e) {
