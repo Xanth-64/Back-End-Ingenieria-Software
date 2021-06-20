@@ -2,16 +2,22 @@ const express = require("express");
 const router = express.Router();
 
 const defaultCrudCallbacks = require("../Controllers/productController");
-import { getProducto_categoria } from "../Controllers/productController";
+import {
+  getProducto_categoria,
+  getAllProductosAndCategorias,
+  linkProductAndSubcat,
+} from "../Controllers/productController";
 //RUTA POST
 router.post("/one", defaultCrudCallbacks.default.createOne);
 //RUTA GET
 router.get("/one/:id", defaultCrudCallbacks.default.getOne);
 router.get("/some", defaultCrudCallbacks.default.getSome);
 router.get("/all", defaultCrudCallbacks.default.getMany);
+router.get("/all/withCategories", getAllProductosAndCategorias);
 //RUTA PUT
 router.put("/one/:id", defaultCrudCallbacks.default.updateOne);
 router.put("/some", defaultCrudCallbacks.default.updateSome);
+router.put("/link/subCat", linkProductAndSubcat);
 //RUTA DELETE
 router.delete("/one/:id", defaultCrudCallbacks.default.deleteOne);
 //RUTA PARA TRAER LOS PRODUCTOS EN BASE A UNA CATEGORIA

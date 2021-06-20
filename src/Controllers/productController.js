@@ -5,6 +5,66 @@ import { defaultCrudCallbacks } from "./crud";
 //Exportacion de los Cruds Basicos para el Modelo de Producto. (Ahora el modelo tiene los Cruds basicos automaticamente.)
 export default defaultCrudCallbacks(sequelize.models.producto);
 
+// ---- QUERY - Trae TODOS los productos de TODAS las Categorias
+
+export const getAllProductosAndCategorias = async (req, res) => {
+  try {
+    const doc = await sequelize.models.categoria.findAll({
+      include: {
+        model: sequelize.models.subcategoria,
+        required: true,
+        include: {
+          model: sequelize.models.producto,
+          right: true,
+          where: {
+            isVisible: true,
+          },
+        },
+      },
+    });
+
+    if (doc) {
+      return res.status(200).json({
+        message: "Data encontrada Exitosamente",
+        data: doc,
+      });
+    }
+    return res.status(400).json({
+      message: "No se pudo encontrar la Data",
+      data: [],
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(400).end();
+  }
+};
+
+// ---- QUERY - Enlaza un producto a una Subcategoría
+
+export const linkProductAndSubcat = async (req, res) => {
+  try {
+    const doc1 = await sequelize.models.producto.findByPk(req.body.productId);
+    const doc2 = await sequelize.models.subcategoria.findByPk(
+      req.body.subcatId
+    );
+    console.log(doc1);
+    console.log(doc2);
+    if (doc1 && doc2) {
+      await doc1.setSubcategorium(doc2);
+      return res.status(200).json({
+        message: "Union Creada Exitosamente",
+        data: [doc1, doc2],
+      });
+    }
+    return res
+      .status(400)
+      .json({ message: "Error Buscando las entidades a Asociar", data: [] });
+  } catch (err) {
+    console.log(err);
+    res.status(400).end();
+  }
+};
+
 // ---- QUERY - trae los productos en base a la categoria
 export async function getProducto_categoria(req, res) {
   const { nombre } = req.params;
