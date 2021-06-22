@@ -9,6 +9,7 @@ export const createToken = (user) => {
     process.env.JWTSECRET,
     {
       expiresIn: process.env.JWTEXPIRATION,
+      complete: true,
     }
   );
 };
