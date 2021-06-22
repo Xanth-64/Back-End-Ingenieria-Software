@@ -121,7 +121,7 @@ export async function putUsuario(req, res) {
 
 //Buscar la dirección de un usuario
 export async function getUsuarioDireccion(req, res) {
-  const { usuario_id } = req.params;
+  const usuario_id = req.params.id;
 
   try {
     const direccion = await sequelize.query(
@@ -148,7 +148,7 @@ export async function getUsuarioDireccion(req, res) {
 }
 
 export async function getUsuarioPedidos(req, res) {
-  const { usuario_id } = req.params;
+  const usuario_id = req.params.id;
 
   try {
     const pedidos = await sequelize.query(

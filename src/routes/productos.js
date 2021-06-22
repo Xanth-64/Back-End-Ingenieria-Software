@@ -18,6 +18,7 @@ router.get("/all/withCategories", getAllProductosAndCategorias);
 router.put("/one/:id", defaultCrudCallbacks.default.updateOne);
 router.put("/some", defaultCrudCallbacks.default.updateSome);
 router.put("/link/subCat", linkProductAndSubcat);
+router.put("/combo/:id", defaultCrudCallbacks.createProductoIntoCombo);
 //RUTA DELETE
 router.delete("/one/:id", defaultCrudCallbacks.default.deleteOne);
 //RUTA PARA TRAER LOS PRODUCTOS EN BASE A UNA CATEGORIA

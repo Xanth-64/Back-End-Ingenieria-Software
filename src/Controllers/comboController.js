@@ -3,7 +3,7 @@ const { Sequelize, Op, QueryTypes } = require("sequelize");
 
 //Obtener todos los productos de un combo
 export async function getProductosByCombo(req, res) {
-  const { id_combo } = req.params;
+  const id_combo = req.params.id;
 
   try {
     const productos = await sequelize.query(
