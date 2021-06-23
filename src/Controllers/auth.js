@@ -4,13 +4,10 @@ import jwt from "jsonwebtoken";
 //Funcion Utilitaria que crea un token de JWT.
 export const createToken = (user) => {
   //jwt.sing nos permite crear o registrar un token
-  return jwt.sign(
-    { id: user.id_usuario, email: user.email, tipo: user.tipo },
-    process.env.JWTSECRET,
-    {
-      expiresIn: process.env.JWTEXPIRATION,
-    }
-  );
+  const payload = { id: user.id_usuario, email: user.email, tipo: user.tipo };
+  return jwt.sign(payload, process.env.JWTSECRET, {
+    expiresIn: process.env.JWTEXPIRATION,
+  });
 };
 
 //Funcion Utilitaria que valida un token de JWT.
@@ -87,7 +84,7 @@ export const login = async (req, res) => {
         .send({ message: "Username o contraseña Inválida", data: [] });
     }
 
-    const token = createToken(user);
+    const token = createToken(user[0]);
     return res
       .status(200)
       .send({ message: "Autenticación Exitosa", data: [token] });
