@@ -37,6 +37,7 @@ app.use("/api/drivers", require("./routes/drivers"));
 app.use("/api/empre_drive", require("./routes/empre_drive"));
 app.use("/api/empre", require("./routes/empre"));
 app.use("/api/paypalAccount", require("./routes/paypalAccount"));
+app.use("/api/pedido", require("./routes/pedido"));
 app.use("/api/pointsBusiness", require("./routes/pointsBusiness"));
 app.use("/api/pointsDriver", require("./routes/pointsDriver"));
 app.use("/api/productos", require("./routes/productos"));
