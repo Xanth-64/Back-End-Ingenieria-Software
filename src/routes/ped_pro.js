@@ -1,10 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const defaultCrudCallbacks = require("../Controllers/commentController");
-import {
-  getcomentario_Producto
-} from "../Controllers/commentController";
+const defaultCrudCallbacks = require("../Controllers/ped_proController");
 
 //RUTA POST
 router.post("/one", defaultCrudCallbacks.default.createOne);
@@ -17,7 +14,5 @@ router.put("/one/:id", defaultCrudCallbacks.default.updateOne);
 router.put("/some", defaultCrudCallbacks.default.updateSome);
 //RUTA DELETE
 router.delete("/one/:id", defaultCrudCallbacks.default.deleteOne);
-
-router.get("/id_producto/:id_pro",getcomentario_Producto);
 
 module.exports = router;
