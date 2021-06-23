@@ -91,6 +91,37 @@ export async function getProducto_categoria(req, res) {
       .json({ message: "No se encontro la informacion", data: [{}] });
   }
 }
+
+//Creación asociada de un producto nuevo a una categoría ya existente
+export async function createProductoIntoCombo(req, res) {
+  const id_combo = req.params.id;
+
+  try {
+    const producto = await sequelize.models.producto.create(req.body);
+
+    if (producto) {
+      const combo_producto = await sequelize.query(
+        `INSERT INTO combo_producto
+        VALUES (?, ?, ?, ?);`,
+
+        {
+          type: QueryTypes.INSERT,
+          replacements: [Date.now(), Date.now(), producto.id_producto, id_combo],
+        }
+      );
+
+      if (combo_producto) {
+        return res.json({
+          message: `Nuevo producto añadido a la categoría (${id_combo})`,
+          data: producto,
+        });
+      }
+    }
+  } catch(e) {
+    console.log(e);
+    res.status(500).json({ message: "ERROR", data: {} });
+  }
+}
 //-------------------------------------------------------------
 
 //PARA SABER MAS REVISAR userControllers.js  donde esta documentado
