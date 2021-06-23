@@ -10,11 +10,11 @@ module.exports = (sequelize) => {
         autoIncrement: true,
       },
       latitud: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       longitud: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
       },
     },
