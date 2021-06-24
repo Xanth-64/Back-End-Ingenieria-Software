@@ -97,16 +97,16 @@ export async function createProductoIntoCombo(req, res) {
   const id_combo = req.params.id;
 
   try {
-    const producto = await sequelize.models.producto.create(req.body);
+    /* const producto = await sequelize.models.producto.create(req.body);
 
     if (producto) {
       const combo_producto = await sequelize.query(
-        `INSERT INTO combo_producto
-        VALUES (?, ?, ?, ?);`,
+        `INSERT INTO combo_producto ("productoIdProducto", "comboIdCombo")
+        VALUES (?, ?);`,
 
         {
           type: QueryTypes.INSERT,
-          replacements: [Date.now(), Date.now(), producto.id_producto, id_combo],
+          replacements: [producto.id_producto, id_combo],
         }
       );
 
@@ -116,8 +116,19 @@ export async function createProductoIntoCombo(req, res) {
           data: producto,
         });
       }
+    } */
+
+    const combo = await sequelize.models.combo.findByPk(req.params.id);
+    const producto = await sequelize.models.producto.create(req.body);
+    await combo.addProducto(producto);
+
+    if (await combo.hasProducto(producto)) {
+      return res.json({
+        message: `${producto.nombre} insertado en el combo ${combo.nombre}`,
+        data: producto,
+      });
     }
-  } catch(e) {
+  } catch (e) {
     console.log(e);
     res.status(500).json({ message: "ERROR", data: {} });
   }

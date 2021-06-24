@@ -9,6 +9,7 @@ import {
 } from "../Controllers/productController";
 //RUTA POST
 router.post("/one", defaultCrudCallbacks.default.createOne);
+router.post("/combo/:id", defaultCrudCallbacks.createProductoIntoCombo);
 //RUTA GET
 router.get("/one/:id", defaultCrudCallbacks.default.getOne);
 router.get("/some", defaultCrudCallbacks.default.getSome);
@@ -18,7 +19,6 @@ router.get("/all/withCategories", getAllProductosAndCategorias);
 router.put("/one/:id", defaultCrudCallbacks.default.updateOne);
 router.put("/some", defaultCrudCallbacks.default.updateSome);
 router.put("/link/subCat", linkProductAndSubcat);
-router.put("/combo/:id", defaultCrudCallbacks.createProductoIntoCombo);
 //RUTA DELETE
 router.delete("/one/:id", defaultCrudCallbacks.default.deleteOne);
 //RUTA PARA TRAER LOS PRODUCTOS EN BASE A UNA CATEGORIA
