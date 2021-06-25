@@ -35,7 +35,9 @@ module.exports = (sequelize) => {
           min: 0,
         },
       },
-
+      qr: {
+        type: DataTypes.STRING,
+      },
       estado: {
         type: DataTypes.STRING,
         allowNull: false,

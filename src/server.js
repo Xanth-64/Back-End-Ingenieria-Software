@@ -52,6 +52,9 @@ app.use("/api/producto_pedido", require("./routes/ped_pro"));
 //Rutas de Autenticación
 app.use("/api/auth", require("./routes/auth"));
 
+//Rutas de Pagos
+app.use("/api/pay", require("./routes/specialPayment"));
+
 export const start = async () => {
   // Esto autentica la conexion antes de inicializar la App
   sequelize
