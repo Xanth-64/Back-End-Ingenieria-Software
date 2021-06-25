@@ -69,7 +69,7 @@ export async function getEmpre_usuario(req, res) {
     );
     if (empre_usuario) {
       return res.json({
-        message: "Product extraido",
+        message: "Usuario extraido",
         data: empre_usuario,
       });
     }
@@ -81,6 +81,64 @@ export async function getEmpre_usuario(req, res) {
   }
 }
 
+//Obtener productos de un emprendimiento
+export async function getProductosByEmprendimiento(req, res) {
+  const id_empre = req.params.id;
+
+  try {
+    const productos = await sequelize.query(
+      `SELECT producto.* FROM emprendimiento
+      INNER JOIN producto ON "producto"."emprendimientoIdNegocio" = emprendimiento.id_negocio
+      WHERE emprendimiento.id_negocio = (:id);`,
+
+      {
+        type: QueryTypes.SELECT,
+        replacements: { id: id_empre },
+      }
+    );
+
+    if (productos) {
+      return res.json({
+        message: "Productos encontrados",
+        data: productos,
+      });
+    }
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({ message: "ERROR", data: {} });
+  }
+}
+
+//Obtener la valoración de un emprendimiento
+export async function getValoracion(req, res) {
+  const empre_id = req.params.id;
+
+  try {
+    const puntaje = await sequelize.query(
+      `SELECT AVG(puntaje_emprende.puntaje) FROM emprendimiento
+      INNER JOIN producto ON "producto"."emprendimientoIdNegocio" = emprendimiento.id_negocio
+      INNER JOIN producto_pedido ON "producto_pedido"."productoIdProducto" = producto.id_producto
+      INNER JOIN pedido ON pedido.id_pedido = "producto_pedido"."pedidoIdPedido"
+      INNER JOIN puntaje_emprende ON "puntaje_emprende"."pedidoIdPedido" = pedido.id_pedido
+      WHERE emprendimiento.id_negocio = (:id);`,
+
+      {
+        type: QueryTypes.SELECT,
+        replacements: { id: empre_id },
+      }
+    );
+
+    if (puntaje) {
+      return res.json({
+        message: "Valoración determinada",
+        data: puntaje,
+      });
+    }
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({ message: "ERROR", data: {} });
+  }
+}
 //PARA SABER MAS REVISAR userControllers.js  donde esta documentado
 
 //* Cruds Basicos realizados anteriormente para el modelo de Emprendedor. Reemplazados por Genericos pero igualmente de Valor.

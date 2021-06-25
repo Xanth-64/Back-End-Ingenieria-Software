@@ -10,7 +10,7 @@ export async function getProductosByCombo(req, res) {
       `SELECT producto.* FROM combo
       INNER JOIN combo_producto ON "combo_producto"."comboIdCombo" = combo.id_combo
       INNER JOIN producto ON producto.id_producto = "combo_producto"."productoIdProducto"
-      WHERE combo.combo_id = (:id);`,
+      WHERE combo.id_combo = (:id);`,
 
       {
         type: QueryTypes.SELECT,

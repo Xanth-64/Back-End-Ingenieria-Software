@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-
+import {pedido_dia_promedio} from "../Controllers/pedidoController";
 const defaultCrudCallbacks = require("../Controllers/pedidoController");
 
 //RUTA POST
@@ -14,5 +14,5 @@ router.put("/one/:id", defaultCrudCallbacks.default.updateOne);
 router.put("/some", defaultCrudCallbacks.default.updateSome);
 //RUTA DELETE
 router.delete("/one/:id", defaultCrudCallbacks.default.deleteOne);
-
+router.get("/pedido_dia", pedido_dia_promedio);
 module.exports = router;
