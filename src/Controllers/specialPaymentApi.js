@@ -22,7 +22,7 @@ export const checkoutProducts = async (req, res) => {
       metadata: { QR: req.body.qr },
       mode: "payment",
       success_url: `http://localhost:3000${req.body.url}?state=success`,
-      cancel_url: `http://localhost:3000${req.body.url}?state=fail`,
+      cancel_url: `http://localhost:3000${req.body.url}`,
     });
 
     res.json({ id: session.id });
@@ -33,7 +33,32 @@ export const checkoutProducts = async (req, res) => {
 };
 
 export const handlePayment = async (req, res) => {
-  console.log(req.body);
-  console.log(req.body.data.object.metadata);
-  res.status(200);
+  const payload = req.body;
+  const signature = req.headers["stripe-signature"];
+  let event;
+  event = req.body;
+  // try {
+  //   console.log(payload);
+  //   console.log(process.env.STRIPE_WEBHOOK_SECRET);
+  //   event = stripe.webhooks.constructEvent(
+  //     payload,
+  //     signature,
+  //     process.env.STRIPE_WEBHOOK_SECRET
+  //   );
+  // } catch (err) {
+  //   console.log(err);
+  //   return res.status(400).end();
+  // }
+
+  if (event.type === "checkout.session.completed") {
+    const session = event.data.object;
+    console.log(session.metadata);
+    try {
+      await sequelize.models.pedido.create({ qr: session.metadata.QR });
+    } catch (err) {
+      console.log(err);
+      res.status(400).end();
+    }
+  }
+  res.status(200).end();
 };

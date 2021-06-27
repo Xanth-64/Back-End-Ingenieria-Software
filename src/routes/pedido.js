@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const defaultCrudCallbacks = require("../Controllers/pedidoController");
-
+import { linkProducts } from "../Controllers/pedidoController";
 //RUTA POST
 router.post("/one", defaultCrudCallbacks.default.createOne);
 //RUTA GET
@@ -14,5 +14,9 @@ router.put("/one/:id", defaultCrudCallbacks.default.updateOne);
 router.put("/some", defaultCrudCallbacks.default.updateSome);
 //RUTA DELETE
 router.delete("/one/:id", defaultCrudCallbacks.default.deleteOne);
+
+//Enlazar productos y pedido
+
+router.post("/linkProds/:id", linkProducts);
 
 module.exports = router;
