@@ -16,21 +16,21 @@ module.exports = (sequelize) => {
       },
       monto_tienda: {
         type: DataTypes.REAL,
-        allowNull: false,
+        allowNull: true,
         validate: {
           min: 0,
         },
       },
       monto_driver: {
         type: DataTypes.REAL,
-        allowNull: false,
+        allowNull: true,
         validate: {
           min: 0,
         },
       },
       monto_total: {
         type: DataTypes.REAL,
-        allowNull: false,
+        allowNull: true,
         validate: {
           min: 0,
         },
