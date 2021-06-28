@@ -15,13 +15,13 @@ export const checkoutProducts = async (req, res) => {
             product_data: {
               name: elem.nombre,
             },
-            unit_amount: Math.round(elem.price * 100),
+            unit_amount: Math.round((elem.price + elem.price * 0.1) * 100),
           },
         };
       }),
       metadata: { QR: req.body.qr },
       mode: "payment",
-      success_url: `http://localhost:3000${req.body.url}?state=success`,
+      success_url: `http://localhost:3000${req.body.url}?state=success&qr=${req.body.qr}&dr=${req.body.driveId}`,
       cancel_url: `http://localhost:3000${req.body.url}`,
     });
 
