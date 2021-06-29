@@ -110,7 +110,7 @@ export async function getProductosByEmprendimiento(req, res) {
 }
 
 //Obtener la valoración de un emprendimiento
-export async function getValoracion(req, res) {
+export async function getValoracionEmpren(req, res) {
   const empre_id = req.params.id;
 
   try {
