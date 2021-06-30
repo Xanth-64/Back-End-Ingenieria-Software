@@ -47,7 +47,6 @@ app.use("/api/suscription", require("./routes/suscription"));
 app.use("/api/usuarios", require("./routes/usuarios"));
 app.use("/api/vehicle", require("./routes/vehicle"));
 app.use("/api/pedido", require("./routes/pedido"));
-app.use("/api/producto_pedido", require("./routes/ped_pro"));
 
 //Rutas de Autenticación
 app.use("/api/auth", require("./routes/auth"));

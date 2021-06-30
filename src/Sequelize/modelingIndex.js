@@ -24,7 +24,6 @@ const subcategory = require("./Models/SubCategory")(sequelize);
 const suscription = require("./Models/Suscription")(sequelize);
 const user = require("./Models/User")(sequelize);
 const vehicle = require("./Models/Vehicle")(sequelize);
-const ped_pro = require("./Models/producto_pedido")(sequelize);
 
 //Importacion del archivo de Generacion de Relaciones de la Carpeta Models
 const relation = require("./Models/Relationships")(sequelize);

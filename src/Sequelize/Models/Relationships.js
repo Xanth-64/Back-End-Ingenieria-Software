@@ -198,11 +198,11 @@ module.exports = (sequelize) => {
   //Relacion Producto - Pedido (a traves de producto-pedido)
 
   sequelize.models.producto.belongsToMany(sequelize.models.pedido, {
-    through: "producto_pedido",
+    through: "producto_pedidos",
   });
 
   sequelize.models.pedido.belongsToMany(sequelize.models.producto, {
-    through: "producto_pedido",
+    through: "producto_pedidos",
   });
 
   return sequelize;

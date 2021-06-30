@@ -18,6 +18,7 @@ router.get("/some", defaultCrudCallbacks.default.getSome);
 router.get("/all", defaultCrudCallbacks.default.getMany);
 router.get("/valoracion/:id", defaultCrudCallbacks.getValoracionEmpren);
 router.get("/productos/:id", defaultCrudCallbacks.getProductosByEmprendimiento);
+router.get("/productos/ventas/:id", defaultCrudCallbacks.productosMasVendidos);
 //RUTA PUT
 router.put("/one/:id", defaultCrudCallbacks.default.updateOne);
 router.put("/some", defaultCrudCallbacks.default.updateSome);
