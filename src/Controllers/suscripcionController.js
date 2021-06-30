@@ -8,8 +8,8 @@ export const crearSuscripcion = async (req, res) => {
       'SELECT MAX(fecha_fin) AS fecha FROM "public"."suscripcion" WHERE "public"."suscripcion"."emprendimientoIdNegocio" = (:idEmp)',
       { type: QueryTypes.SELECT, replacements: { idEmp: req.params.id } }
     );
-
-    if (doc1.length !== 0 && doc1[0].fecha !== "1970-01-01T00:00:00.000Z") {
+    const fechaPrueba = new Date(doc1[0].fecha);
+    if (doc1.length !== 0 && fechaPrueba.getFullYear() > 2015) {
       const fechita = doc1[0].fecha;
       const fechaObj = new Date(fechita);
       console.log(fechaObj.getMonth());

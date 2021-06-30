@@ -103,8 +103,8 @@ export const handlePayment = async (req, res) => {
             replacements: { idEmp: session.metadata.empreId },
           }
         );
-
-        if (doc1.length !== 0 && doc1[0].fecha !== "1970-01-01T00:00:00.000Z") {
+        const fechaPrueba = new Date(doc1[0].fecha);
+        if (doc1.length !== 0 && fechaPrueba.getFullYear() > 2015) {
           const fechita = doc1[0].fecha;
           const fechaObj = new Date(fechita);
           console.log(fechaObj.getMonth());
