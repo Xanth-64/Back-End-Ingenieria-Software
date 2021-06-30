@@ -1,3 +1,5 @@
+import { crearSuscripcion } from "../Controllers/suscripcionController";
+
 const express = require("express");
 const router = express.Router();
 
@@ -15,4 +17,6 @@ router.put("/some", defaultCrudCallbacks.default.updateSome);
 //RUTA DELETE
 router.delete("/one/:id", defaultCrudCallbacks.default.deleteOne);
 
+//Crear suscripcion para un Emprendedor
+router.post("/createSuscripcion/:id", crearSuscripcion);
 module.exports = router;
