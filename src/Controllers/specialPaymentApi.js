@@ -126,6 +126,7 @@ export const handlePayment = async (req, res) => {
             .json({ message: "Suscripcion Exitosa", data: [doc2] });
         } else {
           const fechaObj2 = new Date();
+          fechaObj2.toString();
           if (fechaObj2.getMonth() + session.metadata.time > 11) {
             fechaObj2.setMonth(
               fechaObj2.getMonth() + session.metadata.time - 11
@@ -134,6 +135,7 @@ export const handlePayment = async (req, res) => {
           } else {
             fechaObj2.setMonth(fechaObj2.getMonth() + session.metadata.time);
           }
+          console.log(fechaObj2.toString());
           const doc3 = await sequelize.models.suscripcion.create({
             fecha_fin: fechaObj2.toString(),
             emprendimientoIdNegocio: session.metadata.empreId,
