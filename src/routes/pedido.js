@@ -2,12 +2,16 @@ const express = require("express");
 const router = express.Router();
 import { pedido_dia_promedio } from "../Controllers/pedidoController";
 const defaultCrudCallbacks = require("../Controllers/pedidoController");
-import { linkProducts } from "../Controllers/pedidoController";
+import {
+  linkProducts,
+  productosDriver,
+  productosEmprendimiento,
+} from "../Controllers/pedidoController";
 //RUTA POST
 router.post("/one", defaultCrudCallbacks.default.createOne);
 //RUTA GET
 router.get("/one/:id", defaultCrudCallbacks.default.getOne);
-router.get("/some", defaultCrudCallbacks.default.getSome);
+router.post("/some", defaultCrudCallbacks.default.getSome);
 router.get("/all", defaultCrudCallbacks.default.getMany);
 //RUTA PUT
 router.put("/one/:id", defaultCrudCallbacks.default.updateOne);
@@ -19,5 +23,6 @@ router.get("/pedido_dia", pedido_dia_promedio);
 //Enlazar productos y pedido
 
 router.post("/linkProds/:id", linkProducts);
-
+router.get("/productos/driver/:id", productosDriver);
+router.get("/productos/empre/:id", productosEmprendimiento);
 module.exports = router;

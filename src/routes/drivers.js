@@ -14,7 +14,7 @@ router.post("/one", defaultCrudCallbacks.default.createOne);
 router.post("/one/byUserAndEmpre", createFromUserAndEmpre);
 //RUTA GET
 router.get("/one/:id", defaultCrudCallbacks.default.getOne);
-router.get("/some", defaultCrudCallbacks.default.getSome);
+router.post("/some", defaultCrudCallbacks.default.getSome);
 router.get("/some/byEmpreDrive/:id", getDriversFromEmpre);
 router.get("/all", defaultCrudCallbacks.default.getMany);
 //RUTA PUT

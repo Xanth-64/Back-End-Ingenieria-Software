@@ -11,7 +11,7 @@ router.post("/one", defaultCrudCallbacks.default.createOne);
 router.post("/one/byCategory/:id", createSubCategoriaFromCategory);
 //RUTA GET
 router.get("/one/:id", defaultCrudCallbacks.default.getOne);
-router.get("/some", defaultCrudCallbacks.default.getSome);
+router.post("/some", defaultCrudCallbacks.default.getSome);
 router.get("/all/byCategory/:id", getSubcategoriesFromCategory);
 router.get("/all", defaultCrudCallbacks.default.getMany);
 //RUTA PUT

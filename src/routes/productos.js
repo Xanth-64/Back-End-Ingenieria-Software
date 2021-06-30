@@ -12,7 +12,7 @@ router.post("/one", defaultCrudCallbacks.default.createOne);
 router.post("/combo/:id", defaultCrudCallbacks.createProductoIntoCombo);
 //RUTA GET
 router.get("/one/:id", defaultCrudCallbacks.default.getOne);
-router.get("/some", defaultCrudCallbacks.default.getSome);
+router.post("/some", defaultCrudCallbacks.default.getSome);
 router.get("/all", defaultCrudCallbacks.default.getMany);
 router.get("/all/withCategories", getAllProductosAndCategorias);
 //RUTA PUT

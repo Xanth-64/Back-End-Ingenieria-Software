@@ -4,6 +4,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET);
 
 export const checkoutProducts = async (req, res) => {
   try {
+    let session;
     console.log(req.body.url);
     if (req.body.empreId) {
       let time = 1;
@@ -16,7 +17,7 @@ export const checkoutProducts = async (req, res) => {
       if (req.body.suscripcionData.pago === 120) {
         time = 14;
       }
-      const session = await stripe.checkout.sessions.create({
+      session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         line_items: {
           quantity: 1,
@@ -34,7 +35,7 @@ export const checkoutProducts = async (req, res) => {
         cancel_url: `http://localhost:3000/Manage/Emprendimiento`,
       });
     } else {
-      const session = await stripe.checkout.sessions.create({
+      session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         line_items: req.body.productArr.map((elem) => {
           return {

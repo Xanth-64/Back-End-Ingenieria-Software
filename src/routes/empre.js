@@ -14,7 +14,7 @@ router.post("/one", defaultCrudCallbacks.default.createOne);
 router.post("/one/byUsuario/:id", createEmpreFromUser);
 //RUTA GET
 router.get("/one/:id", defaultCrudCallbacks.default.getOne);
-router.get("/some", defaultCrudCallbacks.default.getSome);
+router.post("/some", defaultCrudCallbacks.default.getSome);
 router.get("/all", defaultCrudCallbacks.default.getMany);
 router.get("/valoracion/:id", defaultCrudCallbacks.getValoracion);
 router.get("/productos/:id", defaultCrudCallbacks.getProductosByEmprendimiento);
