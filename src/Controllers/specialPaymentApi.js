@@ -125,7 +125,7 @@ export const handlePayment = async (req, res) => {
             .status(200)
             .json({ message: "Suscripcion Exitosa", data: [doc2] });
         } else {
-          const fechaObj2 = Date.now();
+          const fechaObj2 = new Date();
           if (fechaObj2.getMonth() + session.metadata.time > 11) {
             fechaObj2.setMonth(
               fechaObj2.getMonth() + session.metadata.time - 11

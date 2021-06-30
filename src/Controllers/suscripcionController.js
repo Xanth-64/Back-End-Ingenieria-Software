@@ -30,7 +30,7 @@ export const crearSuscripcion = async (req, res) => {
         .status(200)
         .json({ message: "Suscripcion Exitosa", data: [doc2] });
     } else {
-      const fechaObj2 = Date.now();
+      const fechaObj2 = new Date();
       if (fechaObj2.getMonth() + req.body.time > 11) {
         fechaObj2.setMonth(fechaObj2.getMonth() + req.body.time - 11);
         fechaObj2.setFullYear(fechaObj2.getFullYear() + 1);
