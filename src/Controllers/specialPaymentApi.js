@@ -19,16 +19,18 @@ export const checkoutProducts = async (req, res) => {
       }
       session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
-        line_items: {
-          quantity: 1,
-          price_data: {
-            currency: "usd",
-            product_data: {
-              name: req.body.suscripcionData.objeto,
+        line_items: [
+          {
+            quantity: 1,
+            price_data: {
+              currency: "usd",
+              product_data: {
+                name: req.body.suscripcionData.objeto,
+              },
+              unit_amount: Math.round(req.body.suscripcionData.pago * 100),
             },
-            unit_amount: Math.round(req.body.suscripcionData.pago * 100),
           },
-        },
+        ],
         metadata: { empreId: req.body.empreId, time: time },
         mode: "payment",
         success_url: `http://localhost:3000/Manage/Emprendimiento`,
