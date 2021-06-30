@@ -1,3 +1,4 @@
+const { QueryTypes } = require("sequelize");
 const sequelize = require("../Sequelize/modelingIndex");
 const stripe = require("stripe")(process.env.STRIPE_SECRET);
 //Cruds relacionadas a la API de pagos
