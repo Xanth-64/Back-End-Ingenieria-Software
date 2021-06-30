@@ -133,6 +133,7 @@ export const handlePayment = async (req, res) => {
             );
             fechaObj2.setFullYear(fechaObj2.getFullYear() + 1);
           } else {
+            console.log("aqui");
             fechaObj2.setMonth(fechaObj2.getMonth() + session.metadata.time);
           }
           console.log(fechaObj2.toString());
