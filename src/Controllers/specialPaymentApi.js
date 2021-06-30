@@ -56,10 +56,10 @@ export const checkoutProducts = async (req, res) => {
       });
     }
 
-    res.json({ id: session.id });
+    res.status(200).json({ id: session.id });
   } catch (err) {
     console.log(err);
-    res.end();
+    res.status(400).end();
   }
 };
 
