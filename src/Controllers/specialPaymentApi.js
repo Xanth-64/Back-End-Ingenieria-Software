@@ -127,13 +127,14 @@ export const handlePayment = async (req, res) => {
         } else {
           const fechaObj2 = new Date();
           console.log(fechaObj2.toString());
+          console.log(fechaObj2.getMonth() + session.metadata.time);
+          console.log(session.metadata.time);
           if (fechaObj2.getMonth() + session.metadata.time > 11) {
             fechaObj2.setMonth(
               fechaObj2.getMonth() + session.metadata.time - 11
             );
             fechaObj2.setFullYear(fechaObj2.getFullYear() + 1);
           } else {
-            console.log("aqui");
             fechaObj2.setMonth(fechaObj2.getMonth() + session.metadata.time);
           }
           console.log(fechaObj2.toString());
