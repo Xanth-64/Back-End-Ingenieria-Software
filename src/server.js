@@ -80,7 +80,7 @@ export const start = async () => {
         'SELECT MAX(fecha_fin) AS fecha, "emprendimientoIdNegocio" AS id FROM "public"."suscripcion" GROUP BY "emprendimientoIdNegocio" HAVING MAX(fecha_fin) < (:today)',
         {
           type: QueryTypes.SELECT,
-          replacements: { today: new Date().toString() },
+          replacements: { today: new Date().toDateString() },
         }
       );
       console.log(nonPremiumAccounts);
