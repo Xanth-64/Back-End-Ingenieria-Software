@@ -1,5 +1,5 @@
 import express from "express";
-import {} from "node-cron";
+const { QueryTypes } = require("sequelize");
 
 import { json, urlencoded } from "body-parser";
 import cors from "cors";
@@ -75,11 +75,18 @@ export const start = async () => {
       console.error(`Error al Conectar con la BD: ${err}`);
     });
   cron.schedule("* * * * *", async () => {
-    const nonPremiumAccounts = await sequelize.query(
-      'SELECT MAX(fecha_fin) AS fecha, emprendimientoIdNegocio AS id FROM "public"."suscripcion" GROUP BY emprendimientoIdNegocio HAVING MAX(fecha_fin) < (:today)',
-      { replacements: { today: new Date().toString() } }
-    );
-    console.log(nonPremiumAccounts);
+    try {
+      const nonPremiumAccounts = await sequelize.query(
+        'SELECT MAX(fecha_fin) AS fecha, emprendimientoIdNegocio AS id FROM "public"."suscripcion" GROUP BY emprendimientoIdNegocio HAVING MAX(fecha_fin) < (:today)',
+        {
+          type: QueryTypes.SELECT,
+          replacements: { today: new Date().toString() },
+        }
+      );
+      console.log(nonPremiumAccounts);
+    } catch (err) {
+      console.log(err);
+    }
   });
   app.listen(process.env.PORT, () => {
     console.log(`Aplicacion escuchando en el puerto ${process.env.PORT}`);
