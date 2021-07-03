@@ -1,4 +1,6 @@
 import express from "express";
+import {} from "node-cron";
+
 import { json, urlencoded } from "body-parser";
 import cors from "cors";
 import morgan from "morgan";
@@ -6,7 +8,8 @@ import sequelize from "./Sequelize/modelingIndex";
 //Configuracion Base de Express.
 
 const app = express();
-
+// Importacion de cron para la ejecucion de Funciones Periódicas
+const cron = require("node-cron");
 //Middleware para el buen funcionamiento de la REST API.
 
 //Parseo a JSON de los Bodys.
@@ -71,6 +74,9 @@ export const start = async () => {
     .catch((err) => {
       console.error(`Error al Conectar con la BD: ${err}`);
     });
+  cron.schedule("* * * * * *", async () => {
+    console.log("Hello");
+  });
   app.listen(process.env.PORT, () => {
     console.log(`Aplicacion escuchando en el puerto ${process.env.PORT}`);
   });
