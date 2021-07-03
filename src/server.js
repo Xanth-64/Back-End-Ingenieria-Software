@@ -83,6 +83,9 @@ export const start = async () => {
           replacements: { today: new Date().toDateString() },
         }
       );
+      const premiumIds = nonPremiumAccounts.map((elem) => {
+        return elem.id;
+      });
       console.log(nonPremiumAccounts);
     } catch (err) {
       console.log(err);
