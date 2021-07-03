@@ -74,8 +74,12 @@ export const start = async () => {
     .catch((err) => {
       console.error(`Error al Conectar con la BD: ${err}`);
     });
-  cron.schedule("* * * * * *", async () => {
-    console.log("Hello");
+  cron.schedule("* * * * *", async () => {
+    const nonPremiumAccounts = await sequelize.query(
+      'SELECT MAX(fecha_fin) AS fecha, emprendimientoIdNegocio AS id FROM "public"."suscripcion" GROUP BY emprendimientoIdNegocio HAVING MAX(fecha_fin) < (:today)',
+      { replacements: { today: new Date().toString() } }
+    );
+    console.log(nonPremiumAccounts);
   });
   app.listen(process.env.PORT, () => {
     console.log(`Aplicacion escuchando en el puerto ${process.env.PORT}`);
