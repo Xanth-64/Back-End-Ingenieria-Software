@@ -1,6 +1,5 @@
 import express from "express";
-const { QueryTypes } = require("sequelize");
-
+const { QueryTypes, Op } = require("sequelize");
 import { json, urlencoded } from "body-parser";
 import cors from "cors";
 import morgan from "morgan";
@@ -86,6 +85,16 @@ export const start = async () => {
       const premiumIds = nonPremiumAccounts.map((elem) => {
         return elem.id;
       });
+      await sequelize.models.producto.update(
+        { isVisible: false },
+        {
+          where: {
+            emprendimientoIdNegocio: {
+              [Op.notIn]: premiumIds,
+            },
+          },
+        }
+      );
       console.log(premiumIds);
     } catch (err) {
       console.log(err);
