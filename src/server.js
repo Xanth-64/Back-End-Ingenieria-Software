@@ -86,7 +86,7 @@ export const start = async () => {
       const premiumIds = nonPremiumAccounts.map((elem) => {
         return elem.id;
       });
-      console.log(nonPremiumAccounts);
+      console.log(premiumIds);
     } catch (err) {
       console.log(err);
     }
