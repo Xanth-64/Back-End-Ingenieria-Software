@@ -81,6 +81,30 @@ const { Sequelize, Op, QueryTypes } = require("sequelize");
 //   });
 // }
 
+export const getAvailableDrivers = async (req, res) => {
+  try {
+    const doc1 = await sequelize.models.driver.findAll({
+      where: {
+        available: true,
+      },
+      include: {
+        required: true,
+        model: sequelize.models.usuario,
+        include: {
+          required: true,
+          model: sequelize.models.direccion,
+        },
+      },
+    });
+    return res
+      .status(200)
+      .json({ message: "Informacion Encontrada Exitosamente", data: doc1 });
+  } catch (err) {
+    console.log(err);
+    return res.status(400).end();
+  }
+};
+
 export const createFromUserAndEmpre = async (req, res) => {
   try {
     const user = await sequelize.models.usuario.findByPk(req.body.userId);

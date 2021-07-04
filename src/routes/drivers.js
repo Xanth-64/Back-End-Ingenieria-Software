@@ -7,6 +7,7 @@ import {
   getDriver_Condicion,
   createFromUserAndEmpre,
   getDriversFromEmpre,
+  getAvailableDrivers,
 } from "../Controllers/driverController";
 
 //RUTA POST
@@ -25,6 +26,7 @@ router.delete("/one/:id", defaultCrudCallbacks.default.deleteOne);
 
 router.get("/driver_usuario/:id", getUsuario_Driver);
 router.get("/driver_condicion/:condi", getDriver_Condicion);
+router.get("/all/withAddress", getAvailableDrivers);
 module.exports = router;
 
 // import {
