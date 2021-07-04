@@ -6,6 +6,7 @@ import {
   linkProducts,
   productosDriver,
   productosEmprendimiento,
+  productosPedido,
 } from "../Controllers/pedidoController";
 //RUTA POST
 router.post("/one", defaultCrudCallbacks.default.createOne);
@@ -25,4 +26,5 @@ router.get("/pedido_dia", pedido_dia_promedio);
 router.post("/linkProds/:id", linkProducts);
 router.get("/productos/driver/:id", productosDriver);
 router.get("/productos/empre/:id", productosEmprendimiento);
+reouter.get("/productos/pedido/:id", productosPedido);
 module.exports = router;
