@@ -34,8 +34,8 @@ export const checkoutProducts = async (req, res) => {
         ],
         metadata: { empreId: req.body.empreId, time: time },
         mode: "payment",
-        success_url: `http://localhost:3000/Manage/Emprendimiento`,
-        cancel_url: `http://localhost:3000/Manage/Emprendimiento`,
+        success_url: `https://front-end-ingenieria-software-xanth-64.vercel.app/Manage/Emprendimiento`,
+        cancel_url: `https://front-end-ingenieria-software-xanth-64.vercel.app/Manage/Emprendimiento`,
       });
     } else {
       session = await stripe.checkout.sessions.create({
@@ -54,8 +54,8 @@ export const checkoutProducts = async (req, res) => {
         }),
         metadata: { QR: req.body.qr },
         mode: "payment",
-        success_url: `http://localhost:3000${req.body.url}?state=success&qr=${req.body.qr}&dr=${req.body.driveId}`,
-        cancel_url: `http://localhost:3000${req.body.url}`,
+        success_url: `https://front-end-ingenieria-software-xanth-64.vercel.app${req.body.url}?state=success&qr=${req.body.qr}&dr=${req.body.driveId}`,
+        cancel_url: `https://front-end-ingenieria-software-xanth-64.vercel.app${req.body.url}`,
       });
     }
 

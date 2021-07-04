@@ -37,6 +37,7 @@ module.exports = (sequelize) => {
       },
       qr: {
         type: DataTypes.STRING,
+        unique: true,
       },
       estado: {
         type: DataTypes.STRING,
