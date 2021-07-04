@@ -85,7 +85,7 @@ export const getAvailableDrivers = async (req, res) => {
   try {
     const doc1 = await sequelize.models.driver.findAll({
       where: {
-        available: true,
+        active: true,
       },
       include: {
         required: true,
