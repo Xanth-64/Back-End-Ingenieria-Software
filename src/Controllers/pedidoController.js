@@ -2,24 +2,25 @@ const sequelize = require("../Sequelize/modelingIndex");
 const { Sequelize, Op, QueryTypes } = require("sequelize");
 import { defaultCrudCallbacks } from "./crud";
 
-export const productosPedido = async (req,res) => {
-  try{
+export const productosPedido = async (req, res) => {
+  try {
     const doc1 = await sequelize.models.pedido.findAll({
-      where  : {
-        id_pedido = req.params.id
+      where: {
+        id_pedido: req.params.id,
       },
-      include : {
-        model : sequelize.models.producto,
+      include: {
+        model: sequelize.models.producto,
         required: true,
-
-      }
-    })
-    return res.status(200).json({message : 'Informacion Encontrada Exitosamente', data : doc1 })
-  }catch(err){
-    console.log(err)
+      },
+    });
+    return res
+      .status(200)
+      .json({ message: "Informacion Encontrada Exitosamente", data: doc1 });
+  } catch (err) {
+    console.log(err);
     return res.status(400).end();
   }
-}
+};
 
 export const productosDriver = async (req, res) => {
   try {
