@@ -110,15 +110,15 @@ export async function getProductosByEmprendimiento(req, res) {
 }
 
 //Obtener la valoración de un emprendimiento
-export async function getValoracion(req, res) {
+export async function getValoracionEmpren(req, res) {
   const empre_id = req.params.id;
 
   try {
     const puntaje = await sequelize.query(
       `SELECT AVG(puntaje_emprende.puntaje) FROM emprendimiento
       INNER JOIN producto ON "producto"."emprendimientoIdNegocio" = emprendimiento.id_negocio
-      INNER JOIN producto_pedido ON "producto_pedido"."productoIdProducto" = producto.id_producto
-      INNER JOIN pedido ON pedido.id_pedido = "producto_pedido"."pedidoIdPedido"
+      INNER JOIN producto_pedidos ON "producto_pedidos"."productoIdProducto" = producto.id_producto
+      INNER JOIN pedido ON pedido.id_pedido = "producto_pedidos"."pedidoIdPedido"
       INNER JOIN puntaje_emprende ON "puntaje_emprende"."pedidoIdPedido" = pedido.id_pedido
       WHERE emprendimiento.id_negocio = (:id);`,
 
@@ -132,6 +132,38 @@ export async function getValoracion(req, res) {
       return res.json({
         message: "Valoración determinada",
         data: puntaje,
+      });
+    }
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({ message: "ERROR", data: {} });
+  }
+}
+
+//Obtener los productos más vendidos del emprendimiento
+export async function productosMasVendidos(req, res) {
+  const empre_id = req.params.id;
+
+  try {
+    const productos = await sequelize.query(
+      `SELECT producto.* FROM emprendimiento
+      INNER JOIN producto ON "producto"."emprendimientoIdNegocio" = emprendimiento.id_negocio
+      LEFT JOIN producto_pedidos ON "producto_pedidos"."productoIdProducto" = producto.id_producto
+      LEFT JOIN pedido ON pedido.id_pedido = "producto_pedidos"."pedidoIdPedido"
+      WHERE emprendimiento.id_negocio = (:id)
+      GROUP BY producto.id_producto
+      ORDER BY COUNT("producto_pedidos"."productoIdProducto") DESC, producto.nombre ASC;`,
+
+      {
+        type: QueryTypes.SELECT,
+        replacements: { id: empre_id },
+      }
+    );
+
+    if (productos) {
+      return res.json({
+        message: "Listado de productos más vendidos",
+        data: productos,
       });
     }
   } catch (e) {

@@ -219,6 +219,35 @@ export async function getDriver_Condicion(req, res) {
   }
 }
 
+//Obtener la valoración de un driver
+export async function getValoracionDriver(req, res) {
+  const driver_id = req.params.id;
+
+  try {
+    const puntaje = await sequelize.query(
+      `SELECT AVG(puntaje_driver.puntaje) FROM driver
+      INNER JOIN pedido ON "pedido"."driverIdTransportista" = driver.id_transportista
+      INNER JOIN puntaje_driver ON "puntaje_driver"."pedidoIdPedido" = pedido.id_pedido
+      WHERE driver.id_transportista = (:id);`,
+
+      {
+        type: QueryTypes.SELECT,
+        replacements: { id: driver_id },
+      }
+    );
+
+    if (puntaje) {
+      return res.json({
+        message: "Valoración determinada",
+        data: puntaje,
+      });
+    }
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({ message: "ERROR", data: {} });
+  }
+}
+
 import { defaultCrudCallbacks } from "./crud";
 //Exportacion de los Cruds Basicos para el Modelo de Driver. (Ahora el modelo tiene los Cruds basicos automaticamente.)
 export default defaultCrudCallbacks(sequelize.models.driver);
