@@ -46,14 +46,16 @@ export const productosDriver = async (req, res) => {
 
 export const productosEmprendimiento = async (req, res) => {
   try {
-    const doc1 = await sequelize.models.emprendimiento.findAll({
-      where: { id_negocio: req.params.id },
+    const doc1 = await sequelize.models.pedido.findAll({
       include: {
         model: sequelize.models.producto,
         required: true,
         include: {
-          model: sequelize.models.pedido,
+          model: sequelize.models.emprendimiento,
           required: true,
+          where: {
+            id_negocio: req.params.id,
+          },
         },
       },
     });
