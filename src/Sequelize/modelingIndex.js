@@ -1,6 +1,7 @@
 import { Sequelize } from "sequelize";
 
 //Instancia del objeto Sequelize Inicial que permite la conexion a la BD
+console.log(process.env.DB);
 const sequelize = new Sequelize(process.env.DB);
 
 //Importacion de Modelos de la carpeta Models
